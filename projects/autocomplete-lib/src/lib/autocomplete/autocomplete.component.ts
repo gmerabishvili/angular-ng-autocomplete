@@ -439,7 +439,7 @@ export class AutocompleteComponent implements OnInit, OnChanges {
    * Delete click
    */
   onDelete() {
-    console.log('delete');
+    //console.log('delete');
   }
 
 
