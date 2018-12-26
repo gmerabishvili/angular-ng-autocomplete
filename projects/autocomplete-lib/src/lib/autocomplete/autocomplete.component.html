@@ -1,0 +1,80 @@
+<div class="autocomplete-container">
+  <div class="input-container">
+    <input #searchInput type="text" placeholder={{placeHolder}}
+           [(ngModel)]=query
+           (focus)=focus($event)>
+    <div class="x" *ngIf="query && !isLoading" (click)="remove()">
+      <i class="material-icons">close</i>
+    </div>
+    <!--Loading mask-->
+    <div class="sk-fading-circle" *ngIf="isLoading">
+      <div class="sk-circle1 sk-circle"></div>
+      <div class="sk-circle2 sk-circle"></div>
+      <div class="sk-circle3 sk-circle"></div>
+      <div class="sk-circle4 sk-circle"></div>
+      <div class="sk-circle5 sk-circle"></div>
+      <div class="sk-circle6 sk-circle"></div>
+      <div class="sk-circle7 sk-circle"></div>
+      <div class="sk-circle8 sk-circle"></div>
+      <div class="sk-circle9 sk-circle"></div>
+      <div class="sk-circle10 sk-circle"></div>
+      <div class="sk-circle11 sk-circle"></div>
+      <div class="sk-circle12 sk-circle"></div>
+    </div>
+  </div>
+
+  <!--FilteredList items-->
+  <div class="suggestions-container"
+       [ngClass]="{ 'is-hidden': isHistoryListVisible, 'is-visible': !isHistoryListVisible}">
+    <ul>
+      <li *ngFor="let item of filteredList; let idx = index">
+        <!--string logic-->
+        <div [class.complete-selected]="idx === selectedIdx" *ngIf='isType(item)'
+             (click)="select(item)">
+          <ng-container
+            *ngTemplateOutlet="itemTemplate;  context: { $implicit: item | highlight: toHighlight }">
+          </ng-container>
+        </div>
+        <!--object logic-->
+        <div [class.complete-selected]="idx === selectedIdx" *ngIf='!isType(item)'
+             (click)="select(item)">
+          <ng-container
+            *ngTemplateOutlet="itemTemplate; context: { $implicit: item[searchKeyword] | highlight: toHighlight }">
+          </ng-container>
+        </div>
+
+      </li>
+    </ul>
+  </div>
+
+  <!--HistoryList items-->
+  <div class="suggestions-container"
+       [ngClass]="{ 'is-hidden': !isHistoryListVisible, 'is-visible': isHistoryListVisible}">
+    <!--HistoryList heading-->
+    <div class="history-heading" *ngIf="historyList.length > 0">
+      <div class="text">{{historyHeading}}</div>
+      <div class="x" (click)="resetHistoryList($event)">
+        <i class="material-icons">delete</i>
+      </div>
+    </div>
+
+    <ul *ngFor="let item of historyList; let idx = index">
+      <li [class.complete-selected]="idx === selectedIdx">
+        <!--String logic-->
+        <a *ngIf='isType(item)' (click)="select(item)" [innerHTML]="item"></a>
+        <!--Object logic-->
+        <a *ngIf='!isType(item)' (click)="select(item)" [innerHTML]="item[searchKeyword]"></a>
+        <div class="x" (click)="removeHistoryItem(idx, $event)">
+          <i class="material-icons">close</i>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!--Not found-->
+  <div class="not-found" *ngIf="isLoading ? !isLoading && notFound : notFound">
+    <ng-container
+      *ngTemplateOutlet="notFoundTemplate;  context: { $implicit: notFoundText  }">
+    </ng-container>
+  </div>
+</div>
