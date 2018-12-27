@@ -67,11 +67,11 @@ export class AutocompleteComponent implements OnInit, OnChanges {
    * It can be array of strings or array of objects.
    */
   @Input() public data = [];
-  @Input() public placeHolder = ''; // input placeholder
   @Input() public searchKeyword: string; // keyword to filter the list
+  @Input() public placeHolder = ''; // input placeholder
   /**
    * History identifier of history list
-   * When valid history identifier is given, then component stores selected item.
+   * When valid history identifier is given, then component stores selected item to local storage of user's browser.
    * If it is null then history is hidden.
    * History list is visible if at least one history item is stored.
    */
@@ -82,7 +82,7 @@ export class AutocompleteComponent implements OnInit, OnChanges {
    */
   @Input() public historyHeading = 'Recently selected';
   @Input() public historyListMaxNumber = 15; // maximum number of items in the history list.
-  @Input() public notFoundText = 'Not found'; // text when there is no search result.
+  @Input() public notFoundText = 'Not found'; // set custom text when filter returns empty result
   @Input() public isLoading: Boolean; // loading mask
   @Input() public debounceTime: 400; // delay time while typing
   @Input() public initialValue: any; // set initial value
