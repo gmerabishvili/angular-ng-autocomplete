@@ -43,7 +43,7 @@ export class AppModule {}
   [searchKeyword]="keyword"
   (selected)='selectEvent($event)'
   (inputChanged)='onChangeSearch($event)'
-  (inputFocused)='inputFocused($event)'
+  (inputFocused)='onFocused($event)'
   [itemTemplate]="itemTemplateApi"
   [notFoundTemplate]="notFoundTemplate">                                 
 </ng-autocomplete>
@@ -83,7 +83,7 @@ class TestComponent {
     // And reassign the 'data' which is binded to 'data' property.
   }
   
-  inputFocused(e){
+  onFocused(e){
     // do something
   }
 }
