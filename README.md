@@ -43,7 +43,7 @@ export class AppModule {}
   [searchKeyword]="keyword"
   (selected)='selectEvent($event)'
   (inputChanged)='onChangeSearch($event)'
-  (inputFocused)='inputFocusedEventApi($event)'
+  (inputFocused)='inputFocused($event)'
   [itemTemplate]="itemTemplateApi"
   [notFoundTemplate]="notFoundTemplate">                                 
 </ng-autocomplete>
@@ -82,6 +82,10 @@ class TestComponent {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
+  
+  inputFocused(e){
+    // do something
+  }
 }
 ```
 
@@ -97,6 +101,7 @@ class TestComponent {
 | historyListMaxNumber | `number` | `15` | no | Maximum number of items in the history list. |
 | notFoundText | `string` | `Not found` | no | Set custom text when filter returns empty result. |
 | isLoading | `boolean` | `false` | no | Set the loading state from the parent component when data is being loaded. |
+| debounceTime | `number` | `400` | no | Delay time while typing. |
 | initialValue | `any` | `_` | no | initial/default selected value. |
 
 ### Outputs
