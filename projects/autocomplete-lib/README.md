@@ -18,19 +18,19 @@ Table of contents
 - [x] Accessibility.
 
 ## Getting started
-### Step 1: Install `angular-ng-autocomplete`:
+### Step 1: Install `angular-autocomplete`:
 
 #### NPM
 ```shell
-npm i angular-ng-autocomplete
+npm install --save @angular-autocomplete
 ```
-### Step 2: Import the AutocompleteLibModule:
+### Step 2: Import the AngularAutocompleteModule:
 ```js
-import {AutocompleteLibModule} from 'angular-ng-autocomplete';
+import { AngularAutocompleteModule } from '@angular-autocomplete';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [AutocompleteLibModule],
+  imports: [AngularAutocompleteModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
@@ -63,11 +63,13 @@ class TestComponent {
   data: [
      {
        id: 1,
-       name: 'Usa'
+       name: 'Usa',
+       population: 10000
      },
      {
        id: 2,
-       name: 'England'
+       name: 'England',
+       population: 20000
      }
   ];
 
@@ -94,13 +96,13 @@ class TestComponent {
 | [data] | `Array<any>`  | `null` | yes | Data of items list. It can be array of strings or array of objects. |
 | searchKeyword | `string` |  `-` | yes | Variable name to filter data by. |
 | placeHolder  | `string` | `-` | no |  HTML `<input>` placeholder text  |
-| initialValue | `any` | `_` | no | initial/default selected value. |
 | historyIdentifier  | `string` | `_` | no | History identifier of history list. When valid history identifier is given, then component stores selected item to local storage of user's browser. If it is null then history is hidden. History list is visible if at least one history item is stored. History identifier must be unique.  |
 | historyHeading | `string` | `Recently selected` | no | Heading text of history list. If it is null then history heading is hidden. |
 | historyListMaxNumber | `number` | `15` | no | Maximum number of items in the history list. |
 | notFoundText | `string` | `Not found` | no | Set custom text when filter returns empty result. |
 | isLoading | `boolean` | `false` | no | Set the loading state from the parent component when data is being loaded. |
 | debounceTime | `number` | `400` | no | Delay time while typing. |
+| initialValue | `any` | `_` | no | initial/default selected value. |
 
 ### Outputs
 | Output  | Description |
