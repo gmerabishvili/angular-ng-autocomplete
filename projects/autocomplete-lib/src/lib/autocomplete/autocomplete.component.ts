@@ -34,6 +34,7 @@ const isTab = keyCode => keyCode === 9;
   encapsulation: ViewEncapsulation.None,
   host: {
     '(document:click)': 'handleClick($event)',
+    'class': 'ng-autocomplete'
   },
 })
 

@@ -1,3 +1,4 @@
+<!--
 <div style="display: flex; justify-content: space-around">
 
   <div>
@@ -65,4 +66,36 @@
     </ng-template>
   </div>
 
+</div>
+-->
+
+<button type="button" (click)="openStaticPanel($event)">Open</button>
+<button type="button" (click)="closeStaticPanel($event)">Close</button>
+
+<div class="ng-autocomplete">
+  <ng-autocomplete #ngAutoCompleteStatic
+                   [data]="countries"
+                   [initialValue]=""
+                   [placeHolder]="placeholderCountry"
+                   (selected)='selectEvent($event)'
+                   (inputChanged)='inputChangedEvent($event)'
+                   (inputFocused)='inputFocusedEventStatic($event)'
+                   (opened)="openedStatic()"
+                   (closed)="closedStatic()"
+                   [searchKeyword]="keywordCountry"
+                   historyIdentifier="countryList"
+                   [historyHeading]="historyHeading"
+                   historyListMaxNumber="3"
+                   notFoundText="Not found"
+                   [itemTemplate]="itemTemplateStatic"
+                   [notFoundTemplate]="notFoundTemplate">
+  </ng-autocomplete>
+
+  <ng-template #itemTemplateStatic let-item>
+    <a [innerHTML]="item"></a>
+  </ng-template>
+
+  <ng-template #notFoundTemplate let-notFound>
+    <div [innerHTML]="notFound"></div>
+  </ng-template>
 </div>
