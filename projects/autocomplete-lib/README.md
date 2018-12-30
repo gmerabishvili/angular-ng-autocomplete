@@ -1,5 +1,5 @@
 # Angular Autocomplete (Angular 2 +)
-See [Demos](https://ng-autocomplete.github.io/ng-select) or try in [Stackblitz](https://stackblitz.com/edit/ng-autocomplete?file=app%2Fapp.component.ts)
+See [Demo](https://gmerabishvili.github.io/angular-ng-autocomplete/) or try in [Stackblitz](https://stackblitz.com/edit/angular-ng-autocomplete)
 
 Table of contents
 =================

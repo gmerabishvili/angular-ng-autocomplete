@@ -38,13 +38,6 @@ const isTab = keyCode => keyCode === 9;
   },
 })
 
-
-// TODO: responsive design
-// TODO: infinite and virtual scroll
-// TODO: styles, class
-// TODO: material style ui
-// TODO: tests
-
 export class AutocompleteComponent implements OnInit, OnChanges {
   @ViewChild('searchInput') searchInput: ElementRef; // input element
 

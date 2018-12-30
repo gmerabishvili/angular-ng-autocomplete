@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
     'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia',
     'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom', 'Vatican City'];*/
 
-  public countries = [
+  public data = [
     {
       id: 1,
       name: 'Albania',
