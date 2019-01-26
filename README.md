@@ -63,8 +63,8 @@ export class AppModule {}
 ```javascript
 
 class TestComponent {
-  keyword: 'name';
-  data: [
+  keyword = 'name';
+  data = [
      {
        id: 1,
        name: 'Usa'
@@ -86,7 +86,7 @@ class TestComponent {
   }
   
   onFocused(e){
-    // do something
+    // do something when input is focused
   }
 }
 ```
@@ -145,6 +145,7 @@ class TestComponent {
     }
     
   focus(e): void {
+    e.stopPropagation();
     this.auto.focus();
   }  
 }

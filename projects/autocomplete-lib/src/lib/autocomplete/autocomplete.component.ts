@@ -257,9 +257,12 @@ export class AutocompleteComponent implements OnInit, OnChanges {
     if (this.isOpen || this.isOpen && !this.isLoading) {
       return;
     }
-    this.filterList();
-    this.opened.emit();
-    this.isOpen = true;
+    // If data exists
+    if (this.data && this.data.length) {
+      this.filterList();
+      this.opened.emit();
+      this.isOpen = true;
+    }
   }
 
   close() {
@@ -469,17 +472,6 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   }
 
   /**
-   * Reset localStorage
-   * @param e event
-   */
-  resetHistoryList(e) {
-    e.stopPropagation();
-    this.historyList = [];
-    window.localStorage.removeItem(`${this.historyIdentifier}`);
-    this.filterList();
-  }
-
-  /**
    * Remove item from localStorage
    * @param index
    * @param e event
@@ -490,8 +482,19 @@ export class AutocompleteComponent implements OnInit, OnChanges {
     this.saveHistoryToLocalStorage(this.historyList);
     if (this.historyList.length == 0) {
       window.localStorage.removeItem(`${this.historyIdentifier}`);
-      this.open();
+      this.filterList();
     }
+  }
+
+  /**
+   * Reset localStorage
+   * @param e event
+   */
+  resetHistoryList(e) {
+    e.stopPropagation();
+    this.historyList = [];
+    window.localStorage.removeItem(`${this.historyIdentifier}`);
+    this.filterList();
   }
 }
 

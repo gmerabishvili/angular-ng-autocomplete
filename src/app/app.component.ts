@@ -13,11 +13,9 @@ export class AppComponent implements OnInit {
   @ViewChild('ngAutoCompleteApi') ngAutocompleteApi;
 
 
-  users;
-  public placeholderCountry: string = 'Enter the Country Name';
-  public placeholderUser: string = 'Enter the User Name';
-  public keywordCountry = 'name';
-  public keywordUser = 'name';
+  items;
+  public placeholder: string = 'Enter the Country Name';
+  public keyword = 'name';
   public historyHeading: string = 'Recently selected';
   public isLoading: boolean;
   initialValue = {
@@ -25,6 +23,9 @@ export class AppComponent implements OnInit {
     name: 'Georgia',
     population: 200
   };
+  /**
+   * Static Data
+   */
 
   /*public countries = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus',
     'Belgium', 'Bosnia & Herzegovina', 'Bulgaria', 'Croatia', 'Cyprus',
@@ -35,7 +36,7 @@ export class AppComponent implements OnInit {
     'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia',
     'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom', 'Vatican City'];*/
 
-  public data = [
+  public countries = [
     {
       id: 1,
       name: 'Albania',
@@ -103,27 +104,20 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    // Fetch API data on Load
+    this.onChangeSearch(null);
   }
 
-  getUsers() {
-    this.isLoading = true;
-    this._dataService.getUsers().subscribe(res => {
-      this.isLoading = false;
-      this.users = res['data'];
-      //console.log(this.users);
-    }, error => {
-      this.isLoading = false;
-    });
-  }
-
+  /**
+   * API Data
+   */
   onChangeSearch(search: string) {
     this.isLoading = true;
     this._http.get(`https://api.github.com/search/repositories?q=${search}&sort=stars&order=desc&limit=10`)
       .toPromise()
       .then((res) => {
         this.isLoading = false;
-        this.users = res['items'];
+        this.items = res['items'];
       })
       .catch((err) => {
         //console.log(err);
@@ -132,56 +126,89 @@ export class AppComponent implements OnInit {
   }
 
   selectEvent(item) {
-    //console.log('Selected', item);
+    console.log('Selected item', item);
   }
 
-  inputChangedEvent(query) {
-    //console.log('query', query);
+  /**
+   * Static
+   */
+
+  changeEventStatic(query) {
+    console.log('query', query);
   }
 
-  inputFocusedEventStatic(e) {
-    console.log('static ფოკუსირდა');
-  }
-
-  inputFocusedEventApi(e) {
-    console.log('Api ფოკუსირდა');
-    //this.getUsers();
-    this.onChangeSearch('a');
+  focusedEventStatic(e) {
+    console.log('focused');
   }
 
   openedStatic() {
-    console.log('static გაიღოოოო');
+    console.log('opened');
   }
 
   closedStatic() {
-    console.log('static დაიხურააა');
-  }
-
-  openedApi() {
-    console.log('api გაიღოოოო');
-  }
-
-  closedApi() {
-    console.log('api დაიხურააა');
+    console.log('closed');
   }
 
   openStaticPanel(e): void {
+    console.log('open');
     e.stopPropagation();
     this.ngAutocompleteStatic.open();
   }
 
   closeStaticPanel(e): void {
+    console.log('close');
     e.stopPropagation();
     this.ngAutocompleteStatic.close();
   }
 
+  focusStaticPanel(e): void {
+    console.log('focus');
+    e.stopPropagation();
+    this.ngAutocompleteStatic.focus();
+  }
+
+  /**
+   * End of Static
+   */
+
+
+  /**
+   * API
+   */
+
+  focusedEventApi(e) {
+    console.log('focused');
+  }
+
+
+  openedEventApi() {
+    console.log('opened');
+  }
+
+  closedEventApi() {
+    console.log('closed');
+  }
+
+
   openApiPanel(e): void {
+    console.log('open');
     e.stopPropagation();
     this.ngAutocompleteApi.open();
   }
 
   closeApiPanel(e): void {
+    console.log('close');
     e.stopPropagation();
     this.ngAutocompleteApi.close();
   }
+
+  focusApiPanel(e): void {
+    console.log('focus');
+    e.stopPropagation();
+    this.ngAutocompleteApi.focus();
+  }
+
+  /**
+   * End of API
+   */
 }
