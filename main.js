@@ -30,7 +30,7 @@ webpackEmptyAsyncContext.id = "./src/$$_lazy_route_resource lazy recursive";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".ng-autocomplete {\n  display: table;\n  margin: 0 auto;\n}\n"
+module.exports = ".ng-autocomplete {\n  width: 100%;\n  max-width: 600px;\n  display: table;\n  margin: 0 auto;\n}\n"
 
 /***/ }),
 
