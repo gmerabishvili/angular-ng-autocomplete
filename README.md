@@ -51,7 +51,7 @@ export class AppModule {}
 </ng-autocomplete>
 
 <ng-template #itemTemplate let-item>
-<a [innerHTML]="item"></a>
+<a [innerHTML]="item.name"></a>
 </ng-template>
 
 <ng-template #notFoundTemplate let-notFound>

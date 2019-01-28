@@ -39,7 +39,7 @@
         <div [class.complete-selected]="idx === selectedIdx" *ngIf='!isType(item)'
              (click)="select(item)">
           <ng-container
-            *ngTemplateOutlet="itemTemplate; context: { $implicit: item[searchKeyword] | highlight: toHighlight }">
+            *ngTemplateOutlet="itemTemplate; context: { $implicit: item | highlight: toHighlight }">
           </ng-container>
         </div>
 
