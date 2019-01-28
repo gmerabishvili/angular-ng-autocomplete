@@ -60,10 +60,18 @@
 
     <ul *ngFor="let item of historyList; let idx = index">
       <li [class.complete-selected]="idx === selectedIdx">
-        <!--String logic-->
-        <a *ngIf='isType(item)' (click)="select(item)" [innerHTML]="item"></a>
-        <!--Object logic-->
-        <a *ngIf='!isType(item)' (click)="select(item)" [innerHTML]="item[searchKeyword]"></a>
+        <!--string logic-->
+        <div *ngIf='isType(item)' (click)="select(item)">
+          <ng-container
+            *ngTemplateOutlet="itemTemplate;  context: { $implicit: item }">
+          </ng-container>
+        </div>
+        <!--object logic-->
+        <div *ngIf='!isType(item)' (click)="select(item)">
+          <ng-container
+            *ngTemplateOutlet="itemTemplate; context: { $implicit: item }">
+          </ng-container>
+        </div>
         <div class="x" (click)="removeHistoryItem(idx, $event)">
           <i class="material-icons">close</i>
         </div>

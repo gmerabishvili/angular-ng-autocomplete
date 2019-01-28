@@ -1,5 +1,6 @@
 # Angular Autocomplete (Angular 2 +)
-See [Demo](https://gmerabishvili.github.io/angular-ng-autocomplete/) or try in [Stackblitz](https://stackblitz.com/edit/angular-ng-autocomplete)
+* See [Demo](https://gmerabishvili.github.io/angular-ng-autocomplete/) or try in [Stackblitz](https://stackblitz.com/edit/angular-ng-autocomplete)
+* Example with images [Stackblitz](https://stackblitz.com/edit/angular-ng-autocomplete-with-images)
 
 Table of contents
 =================
