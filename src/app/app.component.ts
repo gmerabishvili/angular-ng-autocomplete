@@ -27,77 +27,79 @@ export class AppComponent implements OnInit {
    * Static Data
    */
 
-  /*public countries = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus',
+  public countries = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus',
     'Belgium', 'Bosnia & Herzegovina', 'Bulgaria', 'Croatia', 'Cyprus',
     'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'Georgia',
     'Germany', 'Greece', 'Hungary', 'Iceland', 'India', 'Ireland', 'Italy', 'Kosovo',
     'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Malta',
     'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland',
     'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia',
-    'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom', 'Vatican City'];*/
+    'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom', 'Vatican City'];
 
-  public countries = [
-    {
-      id: 1,
-      name: 'Albania',
-      population: 100
-    },
-    {
-      id: 2,
-      name: 'Belgium',
-      population: 200
-    },
-    {
-      id: 3,
-      name: 'Denmark',
-      population: 200
-    },
-    {
-      id: 4,
-      name: 'Montenegro',
-      population: 200
-    },
-    {
-      id: 5,
-      name: 'Turkey',
-      population: 200
-    },
-    {
-      id: 6,
-      name: 'Ukraine',
-      population: 200
-    },
-    {
-      id: 7,
-      name: 'Macedonia',
-      population: 200
-    },
-    {
-      id: 8,
-      name: 'Slovenia',
-      population: 200
-    },
-    {
-      id: 9,
-      name: 'Georgia',
-      population: 200
-    },
-    {
-      id: 10,
-      name: 'India',
-      population: 200
-    },
-    {
-      id: 11,
-      name: 'Russia',
-      population: 200
-    },
-    {
-      id: 12,
-      name: 'Switzerland',
-      population: 200
-    }
-  ];
+  /*
+    public countries = [
+      {
+        id: 1,
+        name: 'Albania',
+        population: 100
+      },
+      {
+        id: 2,
+        name: 'Belgium',
+        population: 200
+      },
+      {
+        id: 3,
+        name: 'Denmark',
+        population: 200
+      },
+      {
+        id: 4,
+        name: 'Montenegro',
+        population: 200
+      },
+      {
+        id: 5,
+        name: 'Turkey',
+        population: 200
+      },
+      {
+        id: 6,
+        name: 'Ukraine',
+        population: 200
+      },
+      {
+        id: 7,
+        name: 'Macedonia',
+        population: 200
+      },
+      {
+        id: 8,
+        name: 'Slovenia',
+        population: 200
+      },
+      {
+        id: 9,
+        name: 'Georgia',
+        population: 200
+      },
+      {
+        id: 10,
+        name: 'India',
+        population: 200
+      },
+      {
+        id: 11,
+        name: 'Russia',
+        population: 200
+      },
+      {
+        id: 12,
+        name: 'Switzerland',
+        population: 200
+      }
+    ];
+  */
 
 
   constructor(private _dataService: DataService, private _http: HttpClient) {
@@ -134,7 +136,7 @@ export class AppComponent implements OnInit {
    */
 
   changeEventStatic(query) {
-    console.log('query', query);
+    //console.log('query', query);
   }
 
   focusedEventStatic(e) {

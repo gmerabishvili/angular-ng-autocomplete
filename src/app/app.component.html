@@ -27,7 +27,9 @@
       </ng-autocomplete>
 
       <ng-template #itemTemplateStatic let-item>
-        <a [innerHTML]="item.name"></a>
+        <div style="display: flex">
+          <a [innerHTML]="item"></a>
+        </div>
       </ng-template>
 
       <ng-template #notFoundTemplate let-notFound>
@@ -54,7 +56,7 @@
                        (opened)="openedEventApi()"
                        (closed)="closedEventApi()"
                        [searchKeyword]="keyword"
-                       historyIdentifier="userList"
+                       historyIdentifier="reposList"
                        [historyHeading]="historyHeading"
                        historyListMaxNumber="5"
                        notFoundText="Not found"
@@ -65,7 +67,7 @@
       </ng-autocomplete>
 
       <ng-template #itemTemplateApi let-item>
-        <a [innerHTML]="item"></a>
+        <a [innerHTML]="item.name"></a>
       </ng-template>
 
       <ng-template #notFoundTemplate let-notFound>
