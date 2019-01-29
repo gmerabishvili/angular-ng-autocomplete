@@ -411,6 +411,7 @@ export class AutocompleteComponent implements OnInit, OnChanges {
           : this.filteredList[this.selectedIdx];
 
         this.saveHistory(this.filteredList[this.selectedIdx]);
+        this.select(this.filteredList[this.selectedIdx]);
       } else {
         // historyList
         this.query = !this.isType(this.historyList[this.selectedIdx])
@@ -418,6 +419,7 @@ export class AutocompleteComponent implements OnInit, OnChanges {
           : this.historyList[this.selectedIdx];
 
         this.saveHistory(this.historyList[this.selectedIdx]);
+        this.select(this.historyList[this.selectedIdx]);
       }
     }
     this.isHistoryListVisible = false;
