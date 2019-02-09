@@ -4,15 +4,24 @@ import {NgModule} from '@angular/core';
 import {AppComponent} from './app.component';
 import {AutocompleteLibModule} from 'autocomplete-lib';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormsComponent} from './forms/forms.component';
+import {AppRoutingModule} from './app-routing.module';
+import {HomeComponent} from './home/home.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    FormsComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    ReactiveFormsModule,
+    FormsModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

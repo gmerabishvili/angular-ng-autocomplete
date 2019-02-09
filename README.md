@@ -1,6 +1,8 @@
 # Angular Autocomplete (Angular 2 +)
 * See [Demo](https://gmerabishvili.github.io/angular-ng-autocomplete/) or try in [Stackblitz](https://stackblitz.com/edit/angular-ng-autocomplete)
 * Example with images [Stackblitz](https://stackblitz.com/edit/angular-ng-autocomplete-with-images)
+* Example with Angular form API [Stackblitz](https://stackblitz.com/edit/angular-ng-autocomplete-with-forms)
+
 
 Table of contents
 =================
@@ -16,6 +18,7 @@ Table of contents
 - [x] Variable properties and event bindings.
 - [x] Selection history.
 - [x] Custom item and 'not found' templates.
+- [x] Compatible with Angular forms API (Both Reactive and Template-driven forms).
 - [x] Keyboard navigation.
 - [x] Accessibility.
 
@@ -97,14 +100,17 @@ class TestComponent {
 | Input  | Type | Default | Required | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
 | [data] | `Array<any>`  | `null` | yes | Data of items list. It can be array of strings or array of objects. |
-| searchKeyword | `string` |  `-` | yes | Variable name to filter data by. |
+| searchKeyword | `string` |  `-` | yes | Variable name to filter data with. |
 | placeHolder  | `string` | `-` | no |  HTML `<input>` placeholder text.  |
 | initialValue | `any` | `_` | no | initial/default selected value. |
 | historyIdentifier  | `string` | `_` | no | History identifier of history list. When valid history identifier is given, then component stores selected item to local storage of user's browser. If it is null then history is hidden. History list is visible if at least one history item is stored. History identifier must be unique.  |
 | historyHeading | `string` | `Recently selected` | no | Heading text of history list. If it is null then history heading is hidden. |
 | historyListMaxNumber | `number` | `15` | no | Maximum number of items in the history list. |
+| name | `string` | `_` | yes (If NgModel is used within a form tag) |  Tracks the name bound to the NgModel directive. For more details click [here](https://angular.io/api/forms/NgModel) |
+| [(ngModel)] | `any` | `_` | no |  Tracks the value bound to this directive. Used with Template-driven forms. For more details click [here](https://angular.io/api/forms/NgModel) |
+| [formControl] / formControlName | `string` | `_` | no |  Tracks the FormControl instance bound to the directive. Used with Reactive forms. For more details click [here](https://angular.io/api/forms/FormControlDirective) and [here](https://angular.io/api/forms/FormControlName) |
 | notFoundText | `string` | `Not found` | no | Set custom text when filter returns empty result. |
-| isLoading | `boolean` | `false` | no | Set the loading state from the parent component when data is being loaded. |
+| isLoading | `boolean` | `false` | no | Set the loading state when data is being loaded. |
 | debounceTime | `number` | `400` | no | Delay time while typing. |
 
 ### Outputs

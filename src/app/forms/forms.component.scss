@@ -1,0 +1,26 @@
+.forms {
+  display: flex;
+  justify-content: space-around;
+  .container {
+    display: flex;
+    .ng-autocomplete {
+      width: 500px;
+    }
+    .btn {
+      background-color: #3f51b5;
+      border: none;
+      color: white;
+      padding: 8px 22px;
+      margin: 5px 10px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      cursor: pointer;
+      outline: none;
+      &:disabled {
+        background-color: gray;
+      }
+    }
+  }
+}

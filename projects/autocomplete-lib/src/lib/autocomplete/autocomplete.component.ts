@@ -1,7 +1,7 @@
 import {
   Component, ContentChild,
   ElementRef,
-  EventEmitter,
+  EventEmitter, forwardRef,
   Input, OnChanges,
   OnInit,
   Output,
@@ -13,6 +13,7 @@ import {
 } from '@angular/core';
 import {fromEvent, Observable} from 'rxjs';
 import {debounceTime, filter, map} from 'rxjs/operators';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 /**
  * Keyboard events
@@ -31,6 +32,13 @@ const isTab = keyCode => keyCode === 9;
   selector: 'ng-autocomplete',
   templateUrl: './autocomplete.component.html',
   styleUrls: ['./autocomplete.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => AutocompleteComponent),
+      multi: true
+    }
+  ],
   encapsulation: ViewEncapsulation.None,
   host: {
     '(document:click)': 'handleClick($event)',
@@ -38,7 +46,7 @@ const isTab = keyCode => keyCode === 9;
   },
 })
 
-export class AutocompleteComponent implements OnInit, OnChanges {
+export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAccessor {
   @ViewChild('searchInput') searchInput: ElementRef; // input element
 
   inputKeyUp$: Observable<any>; // input events
@@ -103,6 +111,43 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   @ContentChild(TemplateRef)
   @Input() itemTemplate: TemplateRef<any>;
   @Input() notFoundTemplate: TemplateRef<any>;
+
+  /**
+   * Propagates new value when model changes
+   */
+  propagateChange: any = () => {
+  };
+
+
+  /**
+   * Writes a new value from the form model into the view,
+   * Updates model
+   */
+  writeValue(value: any) {
+    if (value) {
+      this.query = value;
+    }
+  }
+
+  /**
+   * Registers a handler that is called when something in the view has changed
+   */
+  registerOnChange(fn) {
+    this.propagateChange = fn;
+  }
+
+  /**
+   * Registers a handler specifically for when a control receives a touch event
+   */
+  registerOnTouched(fn: () => void): void {
+  }
+
+  /**
+   * Event that is called when the value of an input element is changed
+   */
+  onChange(event) {
+    this.propagateChange(event.target.value);
+  }
 
   constructor(myElemenetRef: ElementRef) {
     this.elementRef = myElemenetRef;
@@ -176,6 +221,7 @@ export class AutocompleteComponent implements OnInit, OnChanges {
   public select(item) {
     this.query = !this.isType(item) ? item[this.searchKeyword] : item;
     this.selected.emit(item);
+    this.propagateChange(item);
 
     if (this.initialValue) {
       // check if history already exists in localStorage and then update
@@ -231,6 +277,7 @@ export class AutocompleteComponent implements OnInit, OnChanges {
    */
   public remove() {
     this.query = '';
+    this.propagateChange(this.query);
     this.close();
   }
 
@@ -336,8 +383,13 @@ export class AutocompleteComponent implements OnInit, OnChanges {
       this.onFocusNextItem(e);
     });
 
-    // enter
+    // enter keyup
     this.inputKeyUp$.pipe(filter(e => isEnter(e.keyCode))).subscribe(e => {
+      //this.onHandleEnter();
+    });
+
+    // enter keydown
+    this.inputKeyDown$.pipe(filter(e => isEnter(e.keyCode))).subscribe(e => {
       this.onHandleEnter();
     });
 

@@ -1,0 +1,78 @@
+<button class="btn" type="button" [routerLink]="['/forms']">Example with forms</button>
+
+<div class="example">
+  <div class="static">
+    <h3>Static data</h3>
+    <div class="control-buttons">
+      <button class="btn" type="button" (click)="openStaticPanel($event)">Open</button>
+      <button class="btn" type="button" (click)="closeStaticPanel($event)">Close</button>
+      <button class="btn" type="button" (click)="focusStaticPanel($event)">Focus</button>
+    </div>
+
+    <div class="ng-autocomplete">
+      <ng-autocomplete #ngAutoCompleteStatic
+                       [data]="countries"
+                       [initialValue]=""
+                       [placeHolder]="placeholder"
+                       (selected)='selectEvent($event)'
+                       (inputChanged)='changeEventStatic($event)'
+                       (inputFocused)='focusedEventStatic($event)'
+                       (opened)="openedStatic()"
+                       (closed)="closedStatic()"
+                       [searchKeyword]="keyword"
+                       historyIdentifier="countryList"
+                       [historyHeading]="historyHeading"
+                       historyListMaxNumber="3"
+                       notFoundText="Not found"
+                       [itemTemplate]="itemTemplateStatic"
+                       [notFoundTemplate]="notFoundTemplate">
+      </ng-autocomplete>
+
+      <ng-template #itemTemplateStatic let-item>
+        <a [innerHTML]="item"></a>
+      </ng-template>
+
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="api">
+    <h3>API data</h3>
+    <div class="control-buttons">
+      <button class="btn" type="button" (click)="openApiPanel($event)">Open</button>
+      <button class="btn" type="button" (click)="closeApiPanel($event)">Close</button>
+      <button class="btn" type="button" (click)="focusApiPanel($event)">Focus</button>
+    </div>
+
+    <div class="ng-autocomplete">
+      <ng-autocomplete #ngAutoCompleteApi
+                       [data]="items"
+                       [placeHolder]="placeholder"
+                       (selected)='selectEvent($event)'
+                       (inputChanged)='onChangeSearch($event)'
+                       (inputFocused)='focusedEventApi($event)'
+                       (opened)="openedEventApi()"
+                       (closed)="closedEventApi()"
+                       [searchKeyword]="keyword"
+                       historyIdentifier="reposList"
+                       [historyHeading]="historyHeading"
+                       historyListMaxNumber="5"
+                       notFoundText="Not found"
+                       [isLoading]="isLoading"
+                       debounceTime="700"
+                       [itemTemplate]="itemTemplateApi"
+                       [notFoundTemplate]="notFoundTemplate">
+      </ng-autocomplete>
+
+      <ng-template #itemTemplateApi let-item>
+        <a [innerHTML]="item.name"></a>
+      </ng-template>
+
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+      </ng-template>
+    </div>
+  </div>
+</div>

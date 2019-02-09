@@ -2,6 +2,7 @@
   <div class="input-container">
     <input #searchInput type="text" placeholder={{placeHolder}}
            [(ngModel)]=query
+           (input)="onChange($event)"
            (focus)=focus($event)>
     <div class="x" *ngIf="query && !isLoading" (click)="remove()">
       <i class="material-icons">close</i>
