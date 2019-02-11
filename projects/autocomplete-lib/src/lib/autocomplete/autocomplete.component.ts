@@ -48,6 +48,8 @@ const isTab = keyCode => keyCode === 9;
 
 export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAccessor {
   @ViewChild('searchInput') searchInput: ElementRef; // input element
+  @ViewChild('filteredListElement') filteredListElement: ElementRef; // element of items
+  @ViewChild('historyListElement') historyListElement: ElementRef; // element of history items
 
   inputKeyUp$: Observable<any>; // input events
   inputKeyDown$: Observable<any>; // input events
@@ -188,6 +190,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
    * Filter data
    */
   public filterList() {
+    this.selectedIdx = null;
     this.initSearchHistory();
     if (this.query != null && this.data) {
       this.toHighlight = this.query;
@@ -380,7 +383,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
       e => isArrowUpDown(e.keyCode)
     )).subscribe(e => {
       e.preventDefault();
-      this.onFocusNextItem(e);
+      this.onFocusItem(e);
     });
 
     // enter keyup
@@ -427,26 +430,80 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     }
   }
 
+
   /**
-   * Keyboard arrow top and arrow bottom input
+   * Keyboard arrow top and arrow bottom
    * @param e event
    */
-  onFocusNextItem(e) {
+  onFocusItem(e) {
     // move arrow up and down on filteredList or historyList
     if (!this.historyList.length || !this.isHistoryListVisible) {
       // filteredList
-      if (e.code === 'ArrowDown' && this.selectedIdx < this.filteredList.length - 1) {
-        this.selectedIdx++;
-      } else if (e.code === 'ArrowUp' && this.selectedIdx > 0) {
-        this.selectedIdx--;
+      const totalNumItem = this.filteredList.length;
+      if (e.code === 'ArrowDown') {
+        let sum = this.selectedIdx;
+        sum = (this.selectedIdx === null) ? 0 : sum + 1;
+        this.selectedIdx = (totalNumItem + sum) % totalNumItem;
+        this.scrollToFocusedItem(this.selectedIdx);
+      } else if (e.code === 'ArrowUp') {
+        this.selectedIdx = (totalNumItem + this.selectedIdx - 1) % totalNumItem;
+        this.scrollToFocusedItem(this.selectedIdx);
       }
     } else {
       // historyList
-      if (e.code === 'ArrowDown' && this.selectedIdx < this.historyList.length - 1) {
-        this.selectedIdx++;
-      } else if (e.code === 'ArrowUp' && this.selectedIdx > 0) {
-        this.selectedIdx--;
+      const totalNumItem = this.historyList.length;
+      if (e.code === 'ArrowDown') {
+        let sum = this.selectedIdx;
+        sum = (this.selectedIdx === null) ? 0 : sum + 1;
+        this.selectedIdx = (totalNumItem + sum) % totalNumItem;
+        this.scrollToFocusedItem(this.selectedIdx);
+      } else if (e.code === 'ArrowUp') {
+        this.selectedIdx = (totalNumItem + this.selectedIdx - 1) % totalNumItem;
+        this.scrollToFocusedItem(this.selectedIdx);
       }
+    }
+  }
+
+  /**
+   * Scroll to focused item
+   * * @param index
+   */
+  scrollToFocusedItem(index) {
+    let listElement = null;
+    // Define list element
+    if (!this.historyList.length || !this.isHistoryListVisible) {
+      // filteredList element
+      listElement = this.filteredListElement.nativeElement;
+    } else {
+      // historyList element
+      listElement = this.historyListElement.nativeElement;
+    }
+
+    const items = Array.prototype.slice.call(listElement.childNodes).filter((node: any) => {
+      if (node.nodeType === 1) {
+        // if node is element
+        return node.className.includes('item');
+      } else {
+        return false;
+      }
+    });
+
+    if (!items.length) {
+      return;
+    }
+
+    const listHeight = listElement.offsetHeight;
+    const itemHeight = items[index].offsetHeight;
+    const visibleTop = listElement.scrollTop;
+    const visibleBottom = listElement.scrollTop + listHeight - itemHeight;
+    const targetPosition = items[index].offsetTop;
+
+    if (targetPosition < visibleTop) {
+      listElement.scrollTop = targetPosition;
+    }
+
+    if (targetPosition > visibleBottom) {
+      listElement.scrollTop = targetPosition - listHeight + itemHeight;
     }
   }
 

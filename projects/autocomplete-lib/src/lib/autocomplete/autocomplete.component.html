@@ -27,8 +27,8 @@
   <!--FilteredList items-->
   <div class="suggestions-container"
        [ngClass]="{ 'is-hidden': isHistoryListVisible, 'is-visible': !isHistoryListVisible}">
-    <ul>
-      <li *ngFor="let item of filteredList; let idx = index">
+    <ul #filteredListElement>
+      <li *ngFor="let item of filteredList; let idx = index" class="item">
         <!--string logic-->
         <div [class.complete-selected]="idx === selectedIdx" *ngIf='isType(item)'
              (click)="select(item)">
@@ -59,16 +59,16 @@
       </div>
     </div>
 
-    <ul *ngFor="let item of historyList; let idx = index">
-      <li [class.complete-selected]="idx === selectedIdx">
+    <ul #historyListElement>
+      <li *ngFor="let item of historyList; let idx = index" class="item">
         <!--string logic-->
-        <div *ngIf='isType(item)' (click)="select(item)">
+        <div [class.complete-selected]="idx === selectedIdx" *ngIf='isType(item)' (click)="select(item)">
           <ng-container
             *ngTemplateOutlet="itemTemplate;  context: { $implicit: item }">
           </ng-container>
         </div>
         <!--object logic-->
-        <div *ngIf='!isType(item)' (click)="select(item)">
+        <div [class.complete-selected]="idx === selectedIdx" *ngIf='!isType(item)' (click)="select(item)">
           <ng-container
             *ngTemplateOutlet="itemTemplate; context: { $implicit: item }">
           </ng-container>
