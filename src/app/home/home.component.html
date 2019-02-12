@@ -12,18 +12,20 @@
     <div class="ng-autocomplete">
       <ng-autocomplete #ngAutoCompleteStatic
                        [data]="countries"
+                       [searchKeyword]="keyword"
                        [initialValue]=""
                        [placeHolder]="placeholder"
                        (selected)='selectEvent($event)'
                        (inputChanged)='changeEventStatic($event)'
-                       (inputFocused)='focusedEventStatic($event)'
+                       (inputFocused)='focusEventStatic($event)'
+                       (inputCleared)='clearEventStatic()'
                        (opened)="openedStatic()"
                        (closed)="closedStatic()"
-                       [searchKeyword]="keyword"
                        historyIdentifier="countryList"
                        [historyHeading]="historyHeading"
                        historyListMaxNumber="15"
                        notFoundText="Not found"
+                       minQueryLength="1"
                        [itemTemplate]="itemTemplateStatic"
                        [notFoundTemplate]="notFoundTemplate">
       </ng-autocomplete>
@@ -49,18 +51,20 @@
     <div class="ng-autocomplete">
       <ng-autocomplete #ngAutoCompleteApi
                        [data]="items"
+                       [searchKeyword]="keyword"
                        [placeHolder]="placeholder"
                        (selected)='selectEvent($event)'
                        (inputChanged)='onChangeSearch($event)'
                        (inputFocused)='focusedEventApi($event)'
+                       (inputCleared)='clearEventApi()'
                        (opened)="openedEventApi()"
                        (closed)="closedEventApi()"
-                       [searchKeyword]="keyword"
                        historyIdentifier="reposList"
                        [historyHeading]="historyHeading"
                        historyListMaxNumber="5"
                        notFoundText="Not found"
                        [isLoading]="isLoading"
+                       minQueryLength="3"
                        debounceTime="700"
                        [itemTemplate]="itemTemplateApi"
                        [notFoundTemplate]="notFoundTemplate">

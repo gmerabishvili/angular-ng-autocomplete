@@ -73,6 +73,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   @Input() public data = [];
   @Input() public searchKeyword: string; // keyword to filter the list
   @Input() public placeHolder = ''; // input placeholder
+  @Input() public initialValue: any; // set initial value
   /**
    * History identifier of history list
    * When valid history identifier is given, then component stores selected item to local storage of user's browser.
@@ -89,7 +90,10 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   @Input() public notFoundText = 'Not found'; // set custom text when filter returns empty result
   @Input() public isLoading: Boolean; // loading mask
   @Input() public debounceTime: 400; // delay time while typing
-  @Input() public initialValue: any; // set initial value
+  /**
+   * The minimum number of characters the user must type before a search is performed.
+   */
+  @Input() public minQueryLength = 1;
 
 
   // output events
@@ -101,6 +105,9 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 
   /** Event that is emitted whenever an input is focused. */
   @Output() readonly inputFocused: EventEmitter<void> = new EventEmitter<void>();
+
+  /** Event that is emitted whenever an input is cleared. */
+  @Output() readonly inputCleared: EventEmitter<void> = new EventEmitter<void>();
 
   /** Event that is emitted when the autocomplete panel is opened. */
   @Output() readonly opened: EventEmitter<void> = new EventEmitter<void>();
@@ -190,7 +197,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
    * Filter data
    */
   public filterList() {
-    this.selectedIdx = null;
+    this.selectedIdx = -1;
     this.initSearchHistory();
     if (this.query != null && this.data) {
       this.toHighlight = this.query;
@@ -280,6 +287,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
    */
   public remove() {
     this.query = '';
+    this.inputCleared.emit();
     this.propagateChange(this.query);
     this.close();
   }
@@ -418,11 +426,18 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
    */
   onKeyUp(e) {
     this.notFound = false; // search results are unknown while typing
+    // if input is empty
     if (!this.query) {
       this.notFound = false;
+      this.inputChanged.emit(e.target.value);
+      this.inputCleared.emit();
+      this.filterList();
     }
-    this.inputChanged.emit(e.target.value);
-    this.filterList();
+    // if query >= to minQueryLength
+    if (this.query.length >= this.minQueryLength) {
+      this.inputChanged.emit(e.target.value);
+      this.filterList();
+    }
 
     // If no results found
     if (!this.filteredList.length) {

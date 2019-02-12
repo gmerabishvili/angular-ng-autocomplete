@@ -101,29 +101,26 @@ export class HomeComponent implements OnInit {
     ];
   */
 
-  constructor(private _dataService: DataService, private _http: HttpClient) {
+  constructor(private _dataService: DataService) {
   }
 
   ngOnInit() {
-    // Fetch API data on Load
-    this.onChangeSearch(null);
   }
 
   /**
    * API Data
    */
-  onChangeSearch(search: string) {
+  onChangeSearch(val: string) {
+    console.log('value', val);
     this.isLoading = true;
-    this._http.get(`https://api.github.com/search/repositories?q=${search}&sort=stars&order=desc&limit=10`)
-      .toPromise()
-      .then((res) => {
-        this.isLoading = false;
-        this.items = res['items'];
-      })
-      .catch((err) => {
-        //console.log(err);
-        this.isLoading = false;
-      });
+    this._dataService.getRepos(val).subscribe(res => {
+      //console.log('res', res);
+      this.items = res['items'];
+      this.isLoading = false;
+    }, (err) => {
+      console.log('err', err);
+      this.isLoading = false;
+    });
   }
 
   selectEvent(item) {
@@ -138,8 +135,12 @@ export class HomeComponent implements OnInit {
     //console.log('query', query);
   }
 
-  focusedEventStatic(e) {
+  focusEventStatic(e) {
     console.log('focused');
+  }
+
+  clearEventStatic() {
+    console.log('cleared');
   }
 
   openedStatic() {
@@ -179,6 +180,8 @@ export class HomeComponent implements OnInit {
 
   focusedEventApi(e) {
     console.log('focused');
+    // Fetch API data on Load
+    this.onChangeSearch(null);
   }
 
 
@@ -188,6 +191,10 @@ export class HomeComponent implements OnInit {
 
   closedEventApi() {
     console.log('closed');
+  }
+
+  clearEventApi() {
+    console.log('cleared');
   }
 
 

@@ -84,7 +84,7 @@ class TestComponent {
     // do something with selected item
   }
 
-  onChangeSearch(search: string) {
+  onChangeSearch(val: string) {
     // fetch remote data from here
     // And reassign the 'data' which is binded to 'data' property.
   }
@@ -111,6 +111,7 @@ class TestComponent {
 | [formControl] / formControlName | `string` | `_` | no |  Tracks the FormControl instance bound to the directive. Used with Reactive forms. For more details click [here](https://angular.io/api/forms/FormControlDirective) and [here](https://angular.io/api/forms/FormControlName) |
 | notFoundText | `string` | `Not found` | no | Set custom text when filter returns empty result. |
 | isLoading | `boolean` | `false` | no | Set the loading state when data is being loaded. |
+| minQueryLength | `number` | `1` | no | The minimum number of characters the user must type before a search is performed. |
 | debounceTime | `number` | `400` | no | Delay time while typing. |
 
 ### Outputs
@@ -119,6 +120,7 @@ class TestComponent {
 | (selected) | Event is emitted when an item from the list is selected. |
 | (inputChanged) | Event is emitted when an input is changed. |
 | (inputFocused) | Event is emitted when an input is focused. |
+| (inputCleared) | Event is emitted when an input is cleared. |
 | (opened)  | Event is emitted when the autocomplete panel is opened. |
 | (closed)  | Event is emitted when the autocomplete panel is closed. |
 
