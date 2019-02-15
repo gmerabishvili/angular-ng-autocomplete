@@ -539,7 +539,7 @@ if(false) {}
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /Users/user/Workspace/autocomplete-tester/src/styles.css */"./src/styles.css");
+module.exports = __webpack_require__(/*! /Users/user/workspace/autocomplete-tester/src/styles.css */"./src/styles.css");
 
 
 /***/ })
