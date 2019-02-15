@@ -12,3 +12,4 @@ export class DataService {
     return this._http.get(`https://api.github.com/search/repositories?q=${value}&sort=stars&order=desc&limit=10`);
   }
 }
+
