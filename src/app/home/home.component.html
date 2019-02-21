@@ -19,6 +19,7 @@
                        (inputChanged)='changeEventStatic($event)'
                        (inputFocused)='focusEventStatic($event)'
                        (inputCleared)='clearEventStatic()'
+                       (scrolledToEnd)='scrollToEndStatic()'
                        (opened)="openedStatic()"
                        (closed)="closedStatic()"
                        historyIdentifier="countryList"
@@ -57,6 +58,7 @@
                        (inputChanged)='onChangeSearch($event)'
                        (inputFocused)='focusedEventApi($event)'
                        (inputCleared)='clearEventApi()'
+                       (scrolledToEnd)='scrollToEndApi()'
                        (opened)="openedEventApi()"
                        (closed)="closedEventApi()"
                        historyIdentifier="reposList"

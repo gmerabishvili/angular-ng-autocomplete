@@ -6,7 +6,7 @@ import {
   OnInit,
   Output,
   Pipe,
-  PipeTransform,
+  PipeTransform, Renderer2,
   SimpleChanges, TemplateRef,
   ViewChild,
   ViewEncapsulation
@@ -64,6 +64,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   public notFound = false;
   public isFocused = false;
   public isOpen = false;
+  public isScrollToEnd = false;
 
   // inputs
   /**
@@ -115,6 +116,9 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   /** Event that is emitted when the autocomplete panel is closed. */
   @Output() readonly closed: EventEmitter<void> = new EventEmitter<void>();
 
+  /** Event that is emitted when scrolled to the end of items. */
+  @Output() scrolledToEnd = new EventEmitter();
+
 
   // custom templates
   @ContentChild(TemplateRef)
@@ -158,11 +162,12 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     this.propagateChange(event.target.value);
   }
 
-  constructor(elementRef: ElementRef) {
+  constructor(elementRef: ElementRef, private renderer: Renderer2) {
     this.elementRef = elementRef;
   }
 
   ngOnInit() {
+    this.handleScroll();
     this.initEventStream();
     this.setInitialValue(this.initialValue);
   }
@@ -186,10 +191,23 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
       changes.data &&
       Array.isArray(changes.data.currentValue)
     ) {
+      this.handleItemsChange();
       if (!changes.data.firstChange && this.isFocused) {
         this.open();
       }
     }
+  }
+
+  /**
+   * Items change
+   */
+  public handleItemsChange() {
+    this.isScrollToEnd = false;
+    if (!this.isOpen) {
+      return;
+    }
+
+    this.filteredList = this.data;
   }
 
   /**
@@ -299,6 +317,15 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   }
 
   /**
+   * Scroll items
+   */
+  public handleScroll() {
+    this.renderer.listen(this.filteredListElement.nativeElement, 'scroll', () => {
+      this.scrollToEnd();
+    });
+  }
+
+  /**
    * Remove search query
    */
   public remove(e) {
@@ -365,6 +392,24 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     }
     this.inputFocused.emit(e);
     this.isFocused = true;
+  }
+
+  scrollToEnd(): void {
+    if (this.isScrollToEnd) {
+      return;
+    }
+
+    const scrollTop = this.filteredListElement.nativeElement
+      .scrollTop;
+    const scrollHeight = this.filteredListElement.nativeElement
+      .scrollHeight;
+    const elementHeight = this.filteredListElement.nativeElement
+      .clientHeight;
+    const atBottom = scrollHeight === scrollTop + elementHeight;
+    if (atBottom) {
+      this.scrolledToEnd.emit();
+      this.isScrollToEnd = true;
+    }
   }
 
   /**

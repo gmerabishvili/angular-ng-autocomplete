@@ -28,10 +28,9 @@ export class HomeComponent implements OnInit {
    */
 
   public countries = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus',
-    'Belgium', 'Bosnia & Herzegovina', 'Bulgaria', 'Croatia', 'Cyprus',
-    'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'Georgia',
-    'Germany', 'Greece', 'Hungary', 'Iceland', 'India', 'Ireland', 'Italy', 'Kosovo',
-    'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Malta',
+    'Belgium',];
+
+  public test = ['Lithuania', 'Luxembourg', 'Macedonia', 'Malta',
     'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland',
     'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia',
     'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom', 'Vatican City'];
@@ -111,11 +110,11 @@ export class HomeComponent implements OnInit {
    * API Data
    */
   onChangeSearch(val: string) {
-    console.log('value', val);
+    //console.log('value', val);
     this.isLoading = true;
     this._dataService.getRepos(val).subscribe(res => {
-      //console.log('res', res);
-      this.items = res['items'];
+      console.log('res', res);
+      this.items = this.items ? this.items.concat(res['items']) : res['items'];
       this.isLoading = false;
     }, (err) => {
       console.log('err', err);
@@ -141,6 +140,12 @@ export class HomeComponent implements OnInit {
 
   clearEventStatic() {
     console.log('cleared');
+  }
+
+  scrollToEndStatic() {
+    console.log('scrolled-to-bottom');
+    this.countries = [...this.countries, ...this.test];
+    //console.log('countriesssss', this.countries);
   }
 
   openedStatic() {
@@ -197,6 +202,9 @@ export class HomeComponent implements OnInit {
     console.log('cleared');
   }
 
+  scrollToEndApi() {
+    this.onChangeSearch('w');
+  }
 
   openApiPanel(e): void {
     console.log('open');

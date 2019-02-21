@@ -18,6 +18,7 @@ Table of contents
 - [x] Variable properties and event bindings.
 - [x] Selection history.
 - [x] Custom item and 'not found' templates.
+- [x] Infinite scroll.
 - [x] Compatible with Angular forms API (Both Reactive and Template-driven forms).
 - [x] Keyboard navigation.
 - [x] Accessibility.
@@ -123,6 +124,7 @@ class TestComponent {
 | (inputCleared) | Event is emitted when an input is cleared. |
 | (opened)  | Event is emitted when the autocomplete panel is opened. |
 | (closed)  | Event is emitted when the autocomplete panel is closed. |
+| (scrolledToEnd)  | Event is emitted when scrolled to the end of items. Can be used for loading more items in chunks. |
 
 
 ### Methods (controls)
