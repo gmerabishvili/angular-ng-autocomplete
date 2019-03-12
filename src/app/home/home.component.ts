@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
    */
 
   public countries = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus',
-    'Belgium',];
+    'Belgium'];
 
   public test = ['Lithuania', 'Luxembourg', 'Macedonia', 'Malta',
     'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland',

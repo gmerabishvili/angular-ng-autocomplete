@@ -724,8 +724,11 @@ export class HighlightPipe implements PipeTransform {
 
     if (searchKeyword) {
       const name = text[searchKeyword].replace(regex, (match) => `<b>${match}</b>`);
-
-      return {...text, name};
+      // copy original object
+      const text2 = {...text};
+      // set bold value into searchKeyword of copied object
+      text2[searchKeyword] = name;
+      return text2;
     } else {
       return search ? text.replace(regex, (match) => `<b>${match}</b>`) : text;
     }
