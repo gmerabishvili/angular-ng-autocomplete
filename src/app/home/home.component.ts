@@ -140,6 +140,7 @@ export class HomeComponent implements OnInit {
 
   clearEventStatic() {
     console.log('cleared');
+    //this.ngAutocompleteStatic.close();
   }
 
   scrollToEndStatic() {

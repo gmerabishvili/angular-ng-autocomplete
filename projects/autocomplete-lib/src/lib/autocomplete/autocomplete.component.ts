@@ -66,6 +66,12 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   public isOpen = false;
   public isScrollToEnd = false;
 
+  /**
+   * Controls activation
+   */
+  private openFired: boolean;
+  private closeFired: boolean;
+
   // inputs
   /**
    * Data of items list.
@@ -330,11 +336,17 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
    */
   public remove(e) {
     e.stopPropagation();
+    this.openFired = false; // Deactivate open control
+    this.closeFired = false; // Deactivate close control
     this.query = '';
     this.inputCleared.emit();
     this.propagateChange(this.query);
-    this.isOpen = false;
-    this.open();
+
+    // Open panel if open/close controls aren't activated
+    if (!this.openFired && !this.closeFired) {
+      this.isOpen = false;
+      this.open();
+    }
   }
 
   /**
@@ -357,6 +369,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   }
 
   open() {
+    this.openFired = true; // Open control is activated
     if (this.isOpen || this.isOpen && !this.isLoading) {
       return;
     }
@@ -369,6 +382,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   }
 
   close() {
+    this.closeFired = true; // Close control is activated
     if (!this.isOpen) {
       return;
     }
