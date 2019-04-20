@@ -114,7 +114,8 @@ export class HomeComponent implements OnInit {
     this.isLoading = true;
     this._dataService.getRepos(val).subscribe(res => {
       console.log('res', res);
-      this.items = this.items ? this.items.concat(res['items']) : res['items'];
+      //this.items = this.items ? this.items.concat(res['items']) : res['items'];
+      this.items = res['items'];
       this.isLoading = false;
     }, (err) => {
       console.log('err', err);
@@ -130,12 +131,13 @@ export class HomeComponent implements OnInit {
    * Static
    */
 
-  changeEventStatic(query) {
-    //console.log('query', query);
+  changeEventStatic(string: string) {
+    console.log('string', string);
   }
 
   focusEventStatic(e) {
-    console.log('focused');
+    console.log('focused', e);
+    //this.ngAutocompleteStatic.close();
   }
 
   clearEventStatic() {
@@ -149,7 +151,7 @@ export class HomeComponent implements OnInit {
     //console.log('countriesssss', this.countries);
   }
 
-  openedStatic() {
+  openedStatic(e) {
     console.log('opened');
   }
 
@@ -173,6 +175,12 @@ export class HomeComponent implements OnInit {
     console.log('focus');
     e.stopPropagation();
     this.ngAutocompleteStatic.focus();
+  }
+
+  clearStatic(e): void {
+    console.log('clear');
+    e.stopPropagation();
+    this.ngAutocompleteStatic.clear();
   }
 
   /**

@@ -65,12 +65,9 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   public isFocused = false;
   public isOpen = false;
   public isScrollToEnd = false;
+  private manualOpen = undefined;
+  private manualClose = undefined;
 
-  /**
-   * Controls activation
-   */
-  private openFired: boolean;
-  private closeFired: boolean;
 
   // inputs
   /**
@@ -105,10 +102,10 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 
   // output events
   /** Event that is emitted whenever an item from the list is selected. */
-  @Output() selected = new EventEmitter();
+  @Output() selected = new EventEmitter<any>();
 
   /** Event that is emitted whenever an input is changed. */
-  @Output() inputChanged = new EventEmitter();
+  @Output() inputChanged = new EventEmitter<any>();
 
   /** Event that is emitted whenever an input is focused. */
   @Output() readonly inputFocused: EventEmitter<void> = new EventEmitter<void>();
@@ -123,7 +120,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   @Output() readonly closed: EventEmitter<void> = new EventEmitter<void>();
 
   /** Event that is emitted when scrolled to the end of items. */
-  @Output() scrolledToEnd = new EventEmitter();
+  @Output() readonly scrolledToEnd: EventEmitter<void> = new EventEmitter<void>();
 
 
   // custom templates
@@ -199,7 +196,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     ) {
       this.handleItemsChange();
       if (!changes.data.firstChange && this.isFocused) {
-        this.open();
+        this.handleOpen();
       }
     }
   }
@@ -298,7 +295,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     } else {
       this.saveHistory(item);
     }
-    this.close();
+    this.handleClose();
   }
 
   /**
@@ -312,13 +309,13 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
       if (clickedComponent === this.elementRef.nativeElement) {
         inside = true;
         if (this.filteredList.length) {
-          this.open();
+          this.handleOpen();
         }
       }
       clickedComponent = clickedComponent.parentNode;
     } while (clickedComponent);
     if (!inside) {
-      this.close();
+      this.handleClose();
     }
   }
 
@@ -332,21 +329,81 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   }
 
   /**
+   * Define panel state
+   */
+  setPanelState(event) {
+    if (event) {
+      event.stopPropagation();
+    }
+    // If controls are untouched
+    if (typeof this.manualOpen === 'undefined'
+      && typeof this.manualClose === 'undefined') {
+      this.isOpen = false;
+      this.handleOpen();
+    }
+
+    // If one of the controls is untouched and other is deactivated
+    if (typeof this.manualOpen === 'undefined'
+      && this.manualClose === false
+      || typeof this.manualClose === 'undefined'
+      && this.manualOpen === false) {
+      this.isOpen = false;
+      this.handleOpen();
+    }
+
+    // if controls are touched but both are deactivated
+    if (this.manualOpen === false && this.manualClose === false) {
+      this.isOpen = false;
+      this.handleOpen();
+    }
+
+    // if open control is touched and activated
+    if (this.manualOpen) {
+      this.isOpen = false;
+      this.handleOpen();
+      this.manualOpen = false;
+    }
+
+    // if close control is touched and activated
+    if (this.manualClose) {
+      this.isOpen = true;
+      this.handleClose();
+      this.manualClose = false;
+    }
+  }
+
+  /**
+   * Manual controls
+   */
+  open() {
+    this.manualOpen = true;
+    this.isOpen = false;
+    this.handleOpen();
+  }
+
+  close() {
+    this.manualClose = true;
+    this.isOpen = true;
+    this.handleClose();
+  }
+
+  focus() {
+    this.handleFocus(event);
+  }
+
+  clear() {
+    this.remove(event);
+  }
+
+  /**
    * Remove search query
    */
   public remove(e) {
     e.stopPropagation();
-    this.openFired = false; // Deactivate open control
-    this.closeFired = false; // Deactivate close control
     this.query = '';
     this.inputCleared.emit();
     this.propagateChange(this.query);
-
-    // Open panel if open/close controls aren't activated
-    if (!this.openFired && !this.closeFired) {
-      this.isOpen = false;
-      this.open();
-    }
+    this.setPanelState(e);
   }
 
   /**
@@ -368,8 +425,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     }
   }
 
-  open() {
-    this.openFired = true; // Open control is activated
+  handleOpen() {
     if (this.isOpen || this.isOpen && !this.isLoading) {
       return;
     }
@@ -381,8 +437,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     }
   }
 
-  close() {
-    this.closeFired = true; // Close control is activated
+  handleClose() {
     if (!this.isOpen) {
       return;
     }
@@ -395,16 +450,16 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     this.closed.emit();
   }
 
-  focus(e) {
+  handleFocus(e) {
     //this.searchInput.nativeElement.focus();
     if (this.isFocused) {
       return;
     }
+    this.inputFocused.emit(e);
     // if data exists then open
     if (this.data && this.data.length) {
-      this.open();
+      this.setPanelState(event);
     }
-    this.inputFocused.emit(e);
     this.isFocused = true;
   }
 
@@ -508,7 +563,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
       this.notFound = false;
       this.inputChanged.emit(e.target.value);
       this.inputCleared.emit();
-      this.filterList();
+      //this.filterList();
+      this.setPanelState(e);
     }
     // if query >= to minQueryLength
     if (this.query.length >= this.minQueryLength) {
@@ -629,7 +685,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
       }
     }
     this.isHistoryListVisible = false;
-    this.close();
+    this.handleClose();
   }
 
   /**
@@ -637,7 +693,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
    */
   onEsc() {
     this.searchInput.nativeElement.blur();
-    this.close();
+    this.handleClose();
   }
 
   /**

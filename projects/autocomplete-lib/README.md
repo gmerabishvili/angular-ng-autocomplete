@@ -133,6 +133,7 @@ class TestComponent {
 | open  | Opens the autocomplete panel |
 | close | Closes the autocomplete panel |
 | focus | Focuses the autocomplete input element |
+| clear | Clears the autocomplete input element |
 
 To access the control methods of the component you should use  `@ViewChild` decorator.
 See the example below:
