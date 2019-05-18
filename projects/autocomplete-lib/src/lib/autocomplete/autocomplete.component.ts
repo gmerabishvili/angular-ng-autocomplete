@@ -439,6 +439,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 
   handleClose() {
     if (!this.isOpen) {
+      this.isFocused = false;
       return;
     }
     this.isOpen = false;

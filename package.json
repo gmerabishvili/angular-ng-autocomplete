@@ -1,19 +1,19 @@
 {
   "name": "angular-ng-autocomplete",
-  "version": "1.1.12",
+  "version": "1.1.13",
   "description": "Angular autocomplete",
   "keywords": [
     "angular",
+    "angular-ng-autocomplete",
     "angular autocomplete",
     "angular-autocomplete",
-    "ng-autocomplete",
-    "angular-2",
-    "angular-4",
-    "angular-5",
-    "angular-6",
-    "angular-7",
+    "angular-auto-complete",
     "autocomplete-component",
-    "autocomplete"
+    "ng-autocomplete",
+    "auto complete",
+    "autocomplete",
+    "angular-6",
+    "angular-7"
   ],
   "author": {
     "name": "Giorgi Merabishvili",
