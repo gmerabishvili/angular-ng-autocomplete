@@ -122,6 +122,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   /** Event that is emitted when scrolled to the end of items. */
   @Output() readonly scrolledToEnd: EventEmitter<void> = new EventEmitter<void>();
 
+  /** Event that is emitted when user hits RETURN/ENTER on searchinput **/
+  @Output() readonly onReturn: EventEmitter<void> = new EventEmitter<void>();
 
   // custom templates
   @ContentChild(TemplateRef)
