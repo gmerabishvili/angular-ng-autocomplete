@@ -1,6 +1,6 @@
 {
   "name": "angular-ng-autocomplete",
-  "version": "1.1.13",
+  "version": "1.1.14",
   "description": "Angular autocomplete",
   "keywords": [
     "angular",
@@ -20,6 +20,7 @@
     "email": "gtmerabishvili@gmail.com",
     "url": "https://www.linkedin.com/in/giorgi-merabishvili-3719a2121/"
   },
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/gmerabishvili/angular-autocomplete"

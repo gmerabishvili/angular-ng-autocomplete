@@ -24,6 +24,10 @@ $width: 600px;
       padding: 0 15px;
       line-height: 40px;
       height: 40px;
+      &:disabled {
+        background-color: #eee;
+        color: #666;
+      }
     }
     .x {
       position: absolute;
@@ -115,10 +119,27 @@ $width: 600px;
       border-bottom: 1px solid rgba(230, 230, 230, 0.7);
     }
   }
+  &.active {
+    z-index: 999;
+  }
 }
 
 .highlight {
   font-weight: bold;
+}
+
+.overlay {
+  position: absolute;
+  background-color: transparent;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+}
+
+input[type=text]::-ms-clear {
+  display: none;
 }
 
 /*Loading spinner*/

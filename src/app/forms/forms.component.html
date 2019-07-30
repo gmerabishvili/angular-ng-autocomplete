@@ -10,7 +10,7 @@
           <ng-autocomplete #ngAutoCompleteStatic
                            [data]="countriesTemplate"
                            name="name"
-                           [ngModel]="selected.name"
+                           [(ngModel)]="name"
                            [initialValue]=""
                            [placeHolder]="placeholder"
                            [searchKeyword]="keyword"
@@ -23,7 +23,7 @@
           </ng-autocomplete>
 
           <ng-template #itemTemplateStatic let-item>
-            <a [innerHTML]="item.name"></a>
+            <a [innerHTML]="item"></a>
           </ng-template>
 
           <ng-template #notFoundTemplate let-notFound>
@@ -31,43 +31,40 @@
           </ng-template>
         </div>
         <button class="btn" type="submit">Submit</button>
-        <button class="btn" type="button" (click)="set()">set</button>
       </div>
     </form>
   </div>
 
-  <!--
-    <div class="reactive-form">
-      <h3> Reactive Forms</h3>
-      <pre>{{ reactiveForm.value | json }}</pre>
-      <form autocomplete="off" novalidate [formGroup]="reactiveForm" (ngSubmit)="submitReactiveForm($event)">
-        <div class="container">
-          <div class="ng-autocomplete">
-            <ng-autocomplete #ngAutoCompleteStatic
-                             [data]="countriesReactive"
-                             formControlName="name"
-                             [initialValue]=""
-                             [placeHolder]="placeholder"
-                             [searchKeyword]="keyword"
-                             historyIdentifier="countriesReactiveList"
-                             [historyHeading]="historyHeading"
-                             historyListMaxNumber="3"
-                             notFoundText="Not found"
-                             [itemTemplate]="itemTemplateStatic"
-                             [notFoundTemplate]="notFoundTemplate">
-            </ng-autocomplete>
+  <div class="reactive-form">
+    <h3> Reactive Forms</h3>
+    <pre>{{ reactiveForm.value | json }}</pre>
+    <form autocomplete="off" novalidate [formGroup]="reactiveForm" (ngSubmit)="submitReactiveForm($event)">
+      <div class="container">
+        <div class="ng-autocomplete">
+          <ng-autocomplete #ngAutoCompleteStatic
+                           [data]="countriesReactive"
+                           formControlName="name"
+                           [initialValue]=""
+                           [placeHolder]="placeholder"
+                           [searchKeyword]="keyword"
+                           historyIdentifier="countriesReactiveList"
+                           [historyHeading]="historyHeading"
+                           historyListMaxNumber="3"
+                           notFoundText="Not found"
+                           [itemTemplate]="itemTemplateStatic"
+                           [notFoundTemplate]="notFoundTemplate">
+          </ng-autocomplete>
 
-            <ng-template #itemTemplateStatic let-item>
-              <a [innerHTML]="item"></a>
-            </ng-template>
+          <ng-template #itemTemplateStatic let-item>
+            <a [innerHTML]="item"></a>
+          </ng-template>
 
-            <ng-template #notFoundTemplate let-notFound>
-              <div [innerHTML]="notFound"></div>
-            </ng-template>
-          </div>
-          <button class="btn" type="submit" [disabled]="reactiveForm.invalid">Submit</button>
+          <ng-template #notFoundTemplate let-notFound>
+            <div [innerHTML]="notFound"></div>
+          </ng-template>
         </div>
-      </form>
-    </div>
-  -->
+        <button class="btn" type="submit" [disabled]="reactiveForm.invalid">Submit</button>
+      </div>
+    </form>
+  </div>
 </div>

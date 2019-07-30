@@ -1,9 +1,11 @@
-<div class="autocomplete-container">
+<div class="autocomplete-container"
+     [ngClass]="{ 'active': isOpen}">
   <div class="input-container">
     <input #searchInput type="text" placeholder={{placeHolder}}
            [(ngModel)]=query
            (input)="onChange($event)"
-           (focus)=handleFocus($event)>
+           (focus)=handleFocus($event)
+           [disabled]="disabled">
     <div class="x" *ngIf="query && !isLoading" (click)="remove($event)">
       <i class="material-icons">close</i>
     </div>
@@ -87,3 +89,4 @@
     </ng-container>
   </div>
 </div>
+<div class="overlay" *ngIf="overlay" (click)="handleOverlay()"></div>

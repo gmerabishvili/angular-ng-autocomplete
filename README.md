@@ -9,7 +9,7 @@ Table of contents
 
   * [Features](#features)
   * [Getting started](#getting-started)
-  * [Usage](#usage)
+  * [Usage](#usage-sample)
   * [API](#api)
   * [Styles](#styles)
 
@@ -114,6 +114,7 @@ class TestComponent {
 | isLoading | `boolean` | `false` | no | Set the loading state when data is being loaded. |
 | minQueryLength | `number` | `1` | no | The minimum number of characters the user must type before a search is performed. |
 | debounceTime | `number` | `400` | no | Delay time while typing. |
+| disabled | `boolean` | `false` | no | input disable/enable. |
 
 ### Outputs
 | Output  | Description |
@@ -178,7 +179,18 @@ If you are not happy with default styles you can easily override them:
 }
 ```
 
+## Support Angular autocomplete!
+If you do love angular-ng-autocomplete I would appreciate a donation :)
+
+[![](https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif)](https://paypal.me/gmerabishvili?locale.x=en_US)
+
+
 ### Author
 * [Giorgi Merabishvili](https://www.linkedin.com/in/giorgi-merabishvili-3719a2121/)
+
+
+## License
+
+MIT
 
 

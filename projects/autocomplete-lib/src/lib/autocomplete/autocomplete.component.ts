@@ -5,8 +5,7 @@ import {
   Input, OnChanges,
   OnInit,
   Output,
-  Pipe,
-  PipeTransform, Renderer2,
+  Renderer2,
   SimpleChanges, TemplateRef,
   ViewChild,
   ViewEncapsulation
@@ -65,6 +64,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   public isFocused = false;
   public isOpen = false;
   public isScrollToEnd = false;
+  public overlay = false;
   private manualOpen = undefined;
   private manualClose = undefined;
 
@@ -84,7 +84,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
    * If it is null then history is hidden.
    * History list is visible if at least one history item is stored.
    */
-  @Input() public historyIdentifier: String;
+  @Input() public historyIdentifier: string;
   /**
    * Heading text of history list.
    * If it is null then history heading is hidden.
@@ -92,8 +92,9 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   @Input() public historyHeading = 'Recently selected';
   @Input() public historyListMaxNumber = 15; // maximum number of items in the history list.
   @Input() public notFoundText = 'Not found'; // set custom text when filter returns empty result
-  @Input() public isLoading: Boolean; // loading mask
+  @Input() public isLoading: boolean; // loading mask
   @Input() public debounceTime: 400; // delay time while typing
+  @Input() public disabled: boolean; // input disable/enable
   /**
    * The minimum number of characters the user must type before a search is performed.
    */
@@ -140,9 +141,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
    * Updates model
    */
   writeValue(value: any) {
-    if (value) {
-      this.query = value;
-    }
+    this.query = value;
   }
 
   /**
@@ -167,6 +166,13 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
 
   constructor(elementRef: ElementRef, private renderer: Renderer2) {
     this.elementRef = elementRef;
+  }
+
+  /**
+   * Event that is called when the control status changes to or from DISABLED
+   */
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
   }
 
   ngOnInit() {
@@ -251,6 +257,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   public select(item) {
     this.query = !this.isType(item) ? item[this.searchKeyword] : item;
     this.isOpen = true;
+    this.overlay = false;
     this.selected.emit(item);
     this.propagateChange(item);
 
@@ -317,6 +324,13 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     if (!inside) {
       this.handleClose();
     }
+  }
+
+  /**
+   * Handle body overlay
+   */
+  handleOverlay() {
+    this.overlay = false;
   }
 
   /**
@@ -432,6 +446,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     // If data exists
     if (this.data && this.data.length) {
       this.isOpen = true;
+      this.overlay = true;
       this.filterList();
       this.opened.emit();
     }
@@ -443,6 +458,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
       return;
     }
     this.isOpen = false;
+    this.overlay = false;
     this.filteredList = [];
     this.selectedIdx = -1;
     this.notFound = false;
@@ -589,12 +605,12 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     if (!this.historyList.length || !this.isHistoryListVisible) {
       // filteredList
       const totalNumItem = this.filteredList.length;
-      if (e.code === 'ArrowDown') {
+      if (e.key === 'ArrowDown') {
         let sum = this.selectedIdx;
         sum = (this.selectedIdx === null) ? 0 : sum + 1;
         this.selectedIdx = (totalNumItem + sum) % totalNumItem;
         this.scrollToFocusedItem(this.selectedIdx);
-      } else if (e.code === 'ArrowUp') {
+      } else if (e.key === 'ArrowUp') {
         if (this.selectedIdx == -1) {
           this.selectedIdx = 0;
         }
@@ -604,12 +620,12 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     } else {
       // historyList
       const totalNumItem = this.historyList.length;
-      if (e.code === 'ArrowDown') {
+      if (e.key === 'ArrowDown') {
         let sum = this.selectedIdx;
         sum = (this.selectedIdx === null) ? 0 : sum + 1;
         this.selectedIdx = (totalNumItem + sum) % totalNumItem;
         this.scrollToFocusedItem(this.selectedIdx);
-      } else if (e.code === 'ArrowUp') {
+      } else if (e.key === 'ArrowUp') {
         if (this.selectedIdx == -1) {
           this.selectedIdx = 0;
         }
@@ -777,31 +793,5 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     this.historyList = [];
     window.localStorage.removeItem(`${this.historyIdentifier}`);
     this.filterList();
-  }
-}
-
-@Pipe({name: 'highlight'})
-export class HighlightPipe implements PipeTransform {
-  transform(text: any, search: any, searchKeyword?: any): any {
-    let pattern = search.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&');
-    pattern = pattern.split(' ').filter((t) => {
-      return t.length > 0;
-    }).join('|');
-    const regex = new RegExp(pattern, 'gi');
-
-    if (!search) {
-      return text;
-    }
-
-    if (searchKeyword) {
-      const name = text[searchKeyword].replace(regex, (match) => `<b>${match}</b>`);
-      // copy original object
-      const text2 = {...text};
-      // set bold value into searchKeyword of copied object
-      text2[searchKeyword] = name;
-      return text2;
-    } else {
-      return search ? text.replace(regex, (match) => `<b>${match}</b>`) : text;
-    }
   }
 }
