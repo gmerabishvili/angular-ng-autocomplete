@@ -91,6 +91,10 @@ MIT
 MIT
 MIT
 
+angular-ng-autocomplete@1.1.14
+MIT
+MIT
+
 rxjs@6.3.3
 Apache-2.0
 Apache License
