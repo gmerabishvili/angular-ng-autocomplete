@@ -6,7 +6,7 @@
            (input)="onChange($event)"
            (focus)=handleFocus($event)
            [disabled]="disabled">
-    <div class="x" *ngIf="query && !isLoading" (click)="remove($event)">
+    <div class="x" *ngIf="query && !isLoading  && !disabled" (click)="remove($event)">
       <i class="material-icons">close</i>
     </div>
     <!--Loading mask-->
