@@ -231,7 +231,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
         if (typeof item === 'string') {
           // string logic, check equality of strings
           return item.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
-        } else if (typeof item === 'object' && item.constructor === Object) {
+        } else if (typeof item === 'object' && item instanceof Object) {
           // object logic, check property equality
           return item[this.searchKeyword].toLowerCase().indexOf(this.query.toLowerCase()) > -1;
         }
