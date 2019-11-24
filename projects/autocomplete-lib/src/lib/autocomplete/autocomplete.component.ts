@@ -217,6 +217,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     }
 
     this.filteredList = this.data;
+    this.notFound = !this.filteredList || this.filteredList.length === 0;
   }
 
   /**
@@ -589,7 +590,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
       this.filterList();
 
       // If no results found
-      if (!this.filteredList.length) {
+      if (!this.filteredList.length && !this.isLoading) {
         this.notFoundText ? this.notFound = true : this.notFound = false;
       }
     }
