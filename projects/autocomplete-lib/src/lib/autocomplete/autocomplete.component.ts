@@ -376,10 +376,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
       this.isOpen = false;
       this.handleOpen();
       this.manualOpen = false;
-    }
-
-    // if close control is touched and activated
-    if (this.manualClose) {
+    } else if (this.manualClose) {
+      // if close control is touched and activated
       this.isOpen = true;
       this.handleClose();
       this.manualClose = false;
