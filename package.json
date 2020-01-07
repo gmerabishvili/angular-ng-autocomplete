@@ -1,6 +1,6 @@
 {
   "name": "angular-ng-autocomplete",
-  "version": "1.1.14",
+  "version": "1.1.15",
   "description": "Angular autocomplete",
   "keywords": [
     "angular",
@@ -13,7 +13,8 @@
     "auto complete",
     "autocomplete",
     "angular-6",
-    "angular-7"
+    "angular-7",
+    "angular-8"
   ],
   "author": {
     "name": "Giorgi Merabishvili",
@@ -25,6 +26,7 @@
     "type": "git",
     "url": "https://github.com/gmerabishvili/angular-autocomplete"
   },
+  "homepage": "https://gmerabishvili.github.io/angular-ng-autocomplete/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

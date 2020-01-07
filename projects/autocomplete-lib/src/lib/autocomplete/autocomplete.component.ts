@@ -468,7 +468,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   }
 
   handleFocus(e) {
-    //this.searchInput.nativeElement.focus();
+    this.searchInput.nativeElement.focus();
     if (this.isFocused) {
       return;
     }
@@ -559,6 +559,13 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
         debounceTime(100))
     ).subscribe(e => {
       this.onEsc();
+    });
+
+    // TAB
+    this.inputKeyDown$.pipe(
+      filter(e => isTab(e.keyCode))
+    ).subscribe(e => {
+      this.onTab();
     });
 
     // delete
@@ -709,6 +716,14 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
    * Esc click
    */
   onEsc() {
+    this.searchInput.nativeElement.blur();
+    this.handleClose();
+  }
+
+  /**
+   * Tab click
+   */
+  onTab() {
     this.searchInput.nativeElement.blur();
     this.handleClose();
   }

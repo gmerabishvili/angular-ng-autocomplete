@@ -183,6 +183,11 @@ export class HomeComponent implements OnInit {
     this.ngAutocompleteStatic.clear();
   }
 
+  clearAndCloseStatic() {
+    this.ngAutocompleteStatic.close();
+    this.ngAutocompleteStatic.clear();
+  }
+
   /**
    * End of Static
    */
