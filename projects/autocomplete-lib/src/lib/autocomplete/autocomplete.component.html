@@ -29,6 +29,11 @@
   <!--FilteredList items-->
   <div class="suggestions-container"
        [ngClass]="{ 'is-hidden': isHistoryListVisible, 'is-visible': !isHistoryListVisible}">
+    <!--FilteredList heading-->
+    <div class="heading" *ngIf="filteredList.length > 0 && heading">
+      <div class="text">{{heading}}</div>
+    </div>
+
     <ul #filteredListElement>
       <li *ngFor="let item of filteredList; let idx = index" class="item">
         <!--string logic-->
@@ -45,7 +50,6 @@
             *ngTemplateOutlet="itemTemplate; context: { $implicit: item | highlight: toHighlight : searchKeyword }">
           </ng-container>
         </div>
-
       </li>
     </ul>
   </div>
@@ -54,7 +58,7 @@
   <div class="suggestions-container"
        [ngClass]="{ 'is-hidden': !isHistoryListVisible, 'is-visible': isHistoryListVisible}">
     <!--HistoryList heading-->
-    <div class="history-heading" *ngIf="historyList.length > 0 && historyHeading">
+    <div class="heading" *ngIf="historyList.length > 0 && historyHeading">
       <div class="text">{{historyHeading}}</div>
       <div class="x" (click)="resetHistoryList($event)">
         <i class="material-icons">delete</i>

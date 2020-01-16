@@ -77,6 +77,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   @Input() public data = [];
   @Input() public searchKeyword: string; // keyword to filter the list
   @Input() public placeHolder = ''; // input placeholder
+  @Input() public heading = '';
   @Input() public initialValue: any; // set initial value
   /**
    * History identifier of history list

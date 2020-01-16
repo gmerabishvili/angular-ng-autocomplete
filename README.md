@@ -103,6 +103,7 @@ class TestComponent {
 | [data] | `Array<any>`  | `null` | yes | Data of items list. It can be array of strings or array of objects. |
 | searchKeyword | `string` |  `-` | yes | Variable name to filter data with. |
 | placeHolder  | `string` | `-` | no |  HTML `<input>` placeholder text.  |
+| heading | `string` | `-` | no | Heading text of items list. If it is null then heading is hidden. |
 | initialValue | `any` | `_` | no | initial/default selected value. |
 | historyIdentifier  | `string` | `_` | no | History identifier of history list. When valid history identifier is given, then component stores selected item to local storage of user's browser. If it is null then history is hidden. History list is visible if at least one history item is stored. History identifier must be unique.  |
 | historyHeading | `string` | `Recently selected` | no | Heading text of history list. If it is null then history heading is hidden. |
