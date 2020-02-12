@@ -591,7 +591,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
       //this.filterList();
       this.setPanelState(e);
     }
-    // if query >= to minQueryLength
+    if (!this.query && this.query !== '') { return; }
+    // note that '' can be a valid query
     if (this.query.length >= this.minQueryLength) {
       this.inputChanged.emit(e.target.value);
       this.filterList();
