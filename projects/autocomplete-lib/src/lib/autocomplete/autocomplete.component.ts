@@ -1,4 +1,5 @@
 import {
+  AfterViewInit,
   Component, ContentChild,
   ElementRef,
   EventEmitter, forwardRef,
@@ -45,7 +46,7 @@ const isTab = keyCode => keyCode === 9;
   },
 })
 
-export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, ControlValueAccessor {
   @ViewChild('searchInput') searchInput: ElementRef; // input element
   @ViewChild('filteredListElement') filteredListElement: ElementRef; // element of items
   @ViewChild('historyListElement') historyListElement: ElementRef; // element of history items
@@ -69,7 +70,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   private manualClose = undefined;
 
 
-  // inputs
+  // @Inputs
   /**
    * Data of items list.
    * It can be array of strings or array of objects.
@@ -102,7 +103,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   @Input() public minQueryLength = 1;
 
 
-  // output events
+  // @Output events
   /** Event that is emitted whenever an item from the list is selected. */
   @Output() selected = new EventEmitter<any>();
 
@@ -125,10 +126,10 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   @Output() readonly scrolledToEnd: EventEmitter<void> = new EventEmitter<void>();
 
 
-  // custom templates
-  @ContentChild(TemplateRef)
-  @Input() itemTemplate: TemplateRef<any>;
-  @Input() notFoundTemplate: TemplateRef<any>;
+  // Custom templates
+  @Input() itemTemplate !: TemplateRef<any>;
+  @Input() notFoundTemplate !: TemplateRef<any>;
+  @ContentChild(TemplateRef) customTemplate !: TemplateRef<any>;
 
   /**
    * Propagates new value when model changes
@@ -177,9 +178,12 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
   }
 
   ngOnInit() {
-    this.handleScroll();
-    this.initEventStream();
     this.setInitialValue(this.initialValue);
+  }
+
+  ngAfterViewInit() {
+    this.initEventStream();
+    this.handleScroll();
   }
 
   /**
@@ -218,6 +222,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
     }
 
     this.filteredList = this.data;
+    this.notFound = !this.filteredList || this.filteredList.length === 0;
   }
 
   /**
@@ -591,13 +596,17 @@ export class AutocompleteComponent implements OnInit, OnChanges, ControlValueAcc
       //this.filterList();
       this.setPanelState(e);
     }
+    // note that '' can be a valid query
+    if (!this.query && this.query !== '') {
+      return;
+    }
     // if query >= to minQueryLength
     if (this.query.length >= this.minQueryLength) {
       this.inputChanged.emit(e.target.value);
       this.filterList();
 
       // If no results found
-      if (!this.filteredList.length) {
+      if (!this.filteredList.length && !this.isLoading) {
         this.notFoundText ? this.notFound = true : this.notFound = false;
       }
     }
