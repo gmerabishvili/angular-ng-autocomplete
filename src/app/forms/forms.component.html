@@ -38,7 +38,7 @@
   <div class="reactive-form">
     <h3> Reactive Forms</h3>
     <pre>{{ reactiveForm.value | json }}</pre>
-    <form autocomplete="off" novalidate [formGroup]="reactiveForm" (ngSubmit)="submitReactiveForm($event)">
+    <form autocomplete="off" novalidate [formGroup]="reactiveForm" (ngSubmit)="submitReactiveForm()">
       <div class="container">
         <div class="ng-autocomplete">
           <ng-autocomplete #ngAutoCompleteStatic

@@ -151,7 +151,7 @@ export class HomeComponent implements OnInit {
     //console.log('countriesssss', this.countries);
   }
 
-  openedStatic(e) {
+  openedStatic() {
     console.log('opened');
   }
 
