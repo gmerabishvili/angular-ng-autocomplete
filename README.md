@@ -116,6 +116,7 @@ class TestComponent {
 | minQueryLength | `number` | `1` | no | The minimum number of characters the user must type before a search is performed. |
 | debounceTime | `number` | `400` | no | Delay time while typing. |
 | disabled | `boolean` | `false` | no | input disable/enable. |
+| autoSelectFirst | `boolean` | `false` | no | Automatically select the first matched option on the list |
 
 ### Outputs
 | Output  | Description |
