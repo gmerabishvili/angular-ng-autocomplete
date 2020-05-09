@@ -223,6 +223,10 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
 
     this.filteredList = this.data;
     this.notFound = !this.filteredList || this.filteredList.length === 0;
+    
+    if (this.isOpen) {
+      this.filterList();
+    }
   }
 
   /**
