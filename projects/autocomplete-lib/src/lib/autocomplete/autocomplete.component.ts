@@ -101,6 +101,10 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
    * The minimum number of characters the user must type before a search is performed.
    */
   @Input() public minQueryLength = 1;
+  /**
+   * Auto selects the first option found
+   */
+  @Input() public autoSelectFirst = false;
 
 
   // @Output events
@@ -242,6 +246,9 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
           return item[this.searchKeyword].toLowerCase().indexOf(this.query.toLowerCase()) > -1;
         }
       });
+      if (this.filteredList.length > 0 && this.autoSelectFirst) {
+        this.selectedIdx = 0;
+      }
     } else {
       this.notFound = false;
     }
