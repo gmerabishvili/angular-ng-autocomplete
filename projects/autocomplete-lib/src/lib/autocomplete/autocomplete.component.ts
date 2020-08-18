@@ -137,6 +137,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
   propagateChange: any = () => {
   };
 
+  onTouched: any = () => {};
 
   /**
    * Writes a new value from the form model into the view,
@@ -156,7 +157,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
   /**
    * Registers a handler specifically for when a control receives a touch event
    */
-  registerOnTouched(fn: () => void): void {
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
   }
 
   /**
