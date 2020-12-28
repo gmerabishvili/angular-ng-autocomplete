@@ -1,11 +1,15 @@
 <div class="autocomplete-container"
      [ngClass]="{ 'active': isOpen}">
   <div class="input-container">
-    <input #searchInput type="text" placeholder={{placeHolder}}
+    <input #searchInput
+           type="text"
+           placeholder={{placeholder}}
            [(ngModel)]=query
            (input)="onChange($event)"
            (focus)=handleFocus($event)
-           [disabled]="disabled">
+           (blur)=onTouched($event)
+           [disabled]="disabled"
+           autocomplete="off">
     <div class="x" *ngIf="query && !isLoading && !disabled" (click)="remove($event)">
       <i class="material-icons">close</i>
     </div>
@@ -37,14 +41,14 @@
     <ul #filteredListElement>
       <li *ngFor="let item of filteredList; let idx = index" class="item">
         <!--string logic-->
-        <div [class.complete-selected]="idx === selectedIdx" *ngIf='isType(item)'
+        <div [class.complete-selected]="idx === selectedIdx" *ngIf='isTypeString(item)'
              (click)="select(item)">
           <ng-container
             *ngTemplateOutlet="itemTemplate;  context: { $implicit: item | highlight: toHighlight }">
           </ng-container>
         </div>
         <!--object logic-->
-        <div [class.complete-selected]="idx === selectedIdx" *ngIf='!isType(item)'
+        <div [class.complete-selected]="idx === selectedIdx" *ngIf='!isTypeString(item)'
              (click)="select(item)">
           <ng-container
             *ngTemplateOutlet="itemTemplate; context: { $implicit: item | highlight: toHighlight : searchKeyword }">
@@ -68,13 +72,13 @@
     <ul #historyListElement>
       <li *ngFor="let item of historyList; let idx = index" class="item">
         <!--string logic-->
-        <div [class.complete-selected]="idx === selectedIdx" *ngIf='isType(item)' (click)="select(item)">
+        <div [class.complete-selected]="idx === selectedIdx" *ngIf='isTypeString(item)' (click)="select(item)">
           <ng-container
             *ngTemplateOutlet="itemTemplate;  context: { $implicit: item }">
           </ng-container>
         </div>
         <!--object logic-->
-        <div [class.complete-selected]="idx === selectedIdx" *ngIf='!isType(item)' (click)="select(item)">
+        <div [class.complete-selected]="idx === selectedIdx" *ngIf='!isTypeString(item)' (click)="select(item)">
           <ng-container
             *ngTemplateOutlet="itemTemplate; context: { $implicit: item }">
           </ng-container>
@@ -93,4 +97,4 @@
     </ng-container>
   </div>
 </div>
-<div class="overlay" *ngIf="overlay" (click)="handleOverlay()"></div>
+<div class="autocomplete-overlay" *ngIf="overlay" (click)="handleOverlay()"></div>

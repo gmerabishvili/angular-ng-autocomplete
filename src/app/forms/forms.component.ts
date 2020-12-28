@@ -32,18 +32,33 @@ export class FormsComponent implements OnInit {
   */
 
 
-  public countriesReactive = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus',
-    'Belgium', 'Bosnia & Herzegovina', 'Bulgaria', 'Croatia', 'Cyprus',
-    'Czech Republic', 'Denmark', 'Estonia', 'Finland', 'France', 'Georgia',
-    'Germany', 'Greece', 'Hungary', 'Iceland', 'India', 'Ireland', 'Italy', 'Kosovo',
-    'Latvia', 'Liechtenstein', 'Lithuania', 'Luxembourg', 'Macedonia', 'Malta',
-    'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland',
-    'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia',
-    'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom', 'Vatican City'];
+  public countriesReactive = [
+    {
+      id: 1,
+      name: 'Albania',
+    },
+    {
+      id: 2,
+      name: 'Belgium',
+    },
+    {
+      id: 3,
+      name: 'Denmark',
+    },
+    {
+      id: 4,
+      name: 'Montenegro',
+    },
+  ];
 
   constructor(private _fb: FormBuilder) {
     this.reactiveForm = _fb.group({
-      name: [{value: '', disabled: true}, Validators.required]
+      name: [{value: '', disabled: false}, Validators.required]
+    });
+
+    this.reactiveForm.patchValue({
+      name:
+        {value: 1, name: 'Albania'}
     });
   }
 

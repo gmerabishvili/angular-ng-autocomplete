@@ -7,22 +7,22 @@
     <form #form="ngForm" (ngSubmit)="submitTemplateForm(form.value)">
       <div class="container">
         <div class="ng-autocomplete">
-          <ng-autocomplete #ngAutoCompleteStatic
+          <ng-autocomplete #ngAutoComplete
                            [data]="countriesTemplate"
                            name="name"
                            [(ngModel)]="name"
                            [initialValue]=""
-                           [placeHolder]="placeholder"
+                           [placeholder]="placeholder"
                            [searchKeyword]="keyword"
                            historyIdentifier="countriesTemplateList"
                            [historyHeading]="historyHeading"
                            historyListMaxNumber="3"
                            notFoundText="Not found"
-                           [itemTemplate]="itemTemplateStatic"
+                           [itemTemplate]="itemTemplate"
                            [notFoundTemplate]="notFoundTemplate">
           </ng-autocomplete>
 
-          <ng-template #itemTemplateStatic let-item>
+          <ng-template #itemTemplate let-item>
             <a [innerHTML]="item"></a>
           </ng-template>
 
@@ -41,22 +41,22 @@
     <form autocomplete="off" novalidate [formGroup]="reactiveForm" (ngSubmit)="submitReactiveForm()">
       <div class="container">
         <div class="ng-autocomplete">
-          <ng-autocomplete #ngAutoCompleteStatic
+          <ng-autocomplete #ngAutoCompleteReactive
                            [data]="countriesReactive"
                            formControlName="name"
                            [initialValue]=""
-                           [placeHolder]="placeholder"
+                           [placeholder]="placeholder"
                            [searchKeyword]="keyword"
                            historyIdentifier="countriesReactiveList"
                            [historyHeading]="historyHeading"
                            historyListMaxNumber="3"
                            notFoundText="Not found"
-                           [itemTemplate]="itemTemplateStatic"
+                           [itemTemplate]="itemTemplateReactive"
                            [notFoundTemplate]="notFoundTemplate">
           </ng-autocomplete>
 
-          <ng-template #itemTemplateStatic let-item>
-            <a [innerHTML]="item"></a>
+          <ng-template #itemTemplateReactive let-item>
+            <a [innerHTML]="item.name"></a>
           </ng-template>
 
           <ng-template #notFoundTemplate let-notFound>

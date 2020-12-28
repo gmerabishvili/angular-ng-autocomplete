@@ -11,5 +11,9 @@ export class DataService {
   getRepos(value) {
     return this._http.get(`https://api.github.com/search/repositories?q=${value}&sort=stars&order=desc&limit=10`);
   }
+
+  getUsers() {
+    return this._http.get(`https://jsonplaceholder.typicode.com/users`);
+  }
 }
 

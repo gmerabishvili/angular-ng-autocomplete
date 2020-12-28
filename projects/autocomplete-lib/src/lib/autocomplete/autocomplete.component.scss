@@ -128,8 +128,8 @@ $width: 600px;
   font-weight: bold;
 }
 
-.overlay {
-  position: absolute;
+.autocomplete-overlay {
+  position: fixed;
   background-color: transparent;
   width: 100%;
   height: 100%;

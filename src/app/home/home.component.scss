@@ -1,6 +1,7 @@
 .example {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   .control-buttons {
     display: flex;
     margin-bottom: 20px;

@@ -100,11 +100,12 @@ class TestComponent {
 ### Inputs
 | Input  | Type | Default | Required | Description |
 | ------------- | ------------- | ------------- | ------------- | ------------- |
-| [data] | `Array<any>`  | `null` | yes | Data of items list. It can be array of strings or array of objects. |
+| [data] | `Array<any>`  | `null` | yes | Items array. It can be array of strings or array of objects. |
 | searchKeyword | `string` |  `-` | yes | Variable name to filter data with. |
-| placeHolder  | `string` | `-` | no |  HTML `<input>` placeholder text.  |
+| placeholder  | `string` | `-` | no |  HTML `<input>` placeholder text.  |
 | heading | `string` | `-` | no | Heading text of items list. If it is null then heading is hidden. |
 | initialValue | `any` | `_` | no | initial/default selected value. |
+| focusFirst | `boolean` | `false` | no | Automatically focus the first matched item on the list. |
 | historyIdentifier  | `string` | `_` | no | History identifier of history list. When valid history identifier is given, then component stores selected item to local storage of user's browser. If it is null then history is hidden. History list is visible if at least one history item is stored. History identifier must be unique.  |
 | historyHeading | `string` | `Recently selected` | no | Heading text of history list. If it is null then history heading is hidden. |
 | historyListMaxNumber | `number` | `15` | no | Maximum number of items in the history list. |
@@ -114,7 +115,7 @@ class TestComponent {
 | notFoundText | `string` | `Not found` | no | Set custom text when filter returns empty result. |
 | isLoading | `boolean` | `false` | no | Set the loading state when data is being loaded. |
 | minQueryLength | `number` | `1` | no | The minimum number of characters the user must type before a search is performed. |
-| debounceTime | `number` | `400` | no | Delay time while typing. |
+| debounceTime | `number` | `_` | no | Delay time while typing. |
 | disabled | `boolean` | `false` | no | input disable/enable. |
 
 ### Outputs
