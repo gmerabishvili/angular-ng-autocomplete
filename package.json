@@ -1,6 +1,6 @@
 {
   "name": "angular-ng-autocomplete",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Angular autocomplete",
   "keywords": [
     "angular",
@@ -55,7 +55,6 @@
     "adm-zip": "^0.4.13",
     "core-js": "^3.6.4",
     "ng-packagr": "^9.0.0",
-    "parsejson": "0.0.3",
     "rxjs": "^6.5.4",
     "zone.js": "^0.10.2"
   },

@@ -1,7 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {DataService} from '../services/data.service';
-import {Country, Icountry} from '../models/countries';
+import {Country} from '../models/countries';
 import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('userAuto') userAuto;
 
   private users$: Observable<any>;
-
+  userInitialValue = null;
 
   items;
   public placeholder: string = 'Enter the Country Name';
@@ -110,7 +111,9 @@ export class HomeComponent implements OnInit {
     this.countries.push(new Country(1, 'Yeah', 100));
     this.countries.push(new Country(2, 'Yep', 200));
 
-    this.users$ = this._dataService.getUsers();
+    this.users$ = this._dataService.getUsers().pipe(
+      tap(users => this.userInitialValue = users[0]),
+    );
   }
 
   /**
@@ -253,6 +256,11 @@ export class HomeComponent implements OnInit {
   /**
    * API Data  (Filter on local)
    */
+
+  userFocused(e) {
+    console.log('focused');
+  }
+
   selectUser(user) {
     console.log('Selected user', user);
   }

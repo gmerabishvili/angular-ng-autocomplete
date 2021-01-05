@@ -96,7 +96,9 @@
       <ng-autocomplete #userAuto
                        [data]="users$ | async"
                        [searchKeyword]="keyword"
+                       [initialValue]="userInitialValue"
                        [placeholder]="placeholder"
+                       (inputFocused)='userFocused($event)'
                        (selected)='selectUser($event)'
                        (inputChanged)='onUserChange($event)'
                        (scrolledToEnd)='scrollToEndUsers()'

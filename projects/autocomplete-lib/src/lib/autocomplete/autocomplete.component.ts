@@ -79,7 +79,15 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
   @Input() public searchKeyword: string; // keyword to filter the list
   @Input() public placeholder = '';
   @Input() public heading = '';
-  @Input() public initialValue: any;
+
+  @Input()
+  public set initialValue(initialValue) {
+    if (initialValue) {
+      this.select(initialValue);
+    }
+  }
+
+
   /**
    * History identifier of history list
    * When valid history identifier is given, then component stores selected item to local storage of user's browser.
@@ -149,10 +157,8 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
    * Writes a new value from the form model into the view,
    * Updates model
    */
-  writeValue(value: any) {
-    if (value) {
-      this.query = !this.isTypeString(value) ? value[this.searchKeyword] : value;
-    }
+  writeValue(value: any = '') {
+    this.query = value && !this.isTypeString(value) ? value[this.searchKeyword] : value;
   }
 
   /**
@@ -187,23 +193,12 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
     this.disabled = isDisabled;
   }
 
-  ngOnInit() {
-    this.setInitialValue(this.initialValue);
+  ngOnInit(): void {
   }
 
   ngAfterViewInit() {
     this.initEventStream();
     this.handleScroll();
-  }
-
-  /**
-   * Set initial value
-   * @param value
-   */
-  public setInitialValue(value: any) {
-    if (this.initialValue) {
-      this.select(value);
-    }
   }
 
   /**

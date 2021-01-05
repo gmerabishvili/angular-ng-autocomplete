@@ -109,14 +109,17 @@ class TestComponent {
 | historyIdentifier  | `string` | `_` | no | History identifier of history list. When valid history identifier is given, then component stores selected item to local storage of user's browser. If it is null then history is hidden. History list is visible if at least one history item is stored. History identifier must be unique.  |
 | historyHeading | `string` | `Recently selected` | no | Heading text of history list. If it is null then history heading is hidden. |
 | historyListMaxNumber | `number` | `15` | no | Maximum number of items in the history list. |
-| name | `string` | `_` | yes (If NgModel is used within a form tag) |  Tracks the name bound to the NgModel directive. For more details click [here](https://angular.io/api/forms/NgModel) |
-| [(ngModel)] | `any` | `_` | no |  Tracks the value bound to this directive. Used with Template-driven forms. For more details click [here](https://angular.io/api/forms/NgModel) |
-| [formControl] / formControlName | `string` | `_` | no |  Tracks the FormControl instance bound to the directive. Used with Reactive forms. For more details click [here](https://angular.io/api/forms/FormControlDirective) and [here](https://angular.io/api/forms/FormControlName) |
 | notFoundText | `string` | `Not found` | no | Set custom text when filter returns empty result. |
 | isLoading | `boolean` | `false` | no | Set the loading state when data is being loaded. |
 | minQueryLength | `number` | `1` | no | The minimum number of characters the user must type before a search is performed. |
 | debounceTime | `number` | `_` | no | Delay time while typing. |
 | disabled | `boolean` | `false` | no | input disable/enable. |
+| name | `string` | `_` | yes (If NgModel is used within a form tag) |  Tracks the name bound to the NgModel directive. For more details click [here](https://angular.io/api/forms/NgModel) |
+| [(ngModel)] | `any` | `_` | no |  Tracks the value bound to this directive. Used with Template-driven forms. For more details click [here](https://angular.io/api/forms/NgModel) |
+| [formControl] / formControlName | `string` | `_` | no |  Tracks the FormControl instance bound to the directive. Used with Reactive forms. For more details click [here](https://angular.io/api/forms/FormControlDirective) and [here](https://angular.io/api/forms/FormControlName) |
+
+
+
 
 ### Outputs
 | Output  | Description |
