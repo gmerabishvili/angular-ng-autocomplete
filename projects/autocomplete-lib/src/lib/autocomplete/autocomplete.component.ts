@@ -79,15 +79,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
   @Input() public searchKeyword: string; // keyword to filter the list
   @Input() public placeholder = '';
   @Input() public heading = '';
-
-  @Input()
-  public set initialValue(initialValue) {
-    if (initialValue) {
-      this.select(initialValue);
-    }
-  }
-
-
+  @Input() public initialValue: any;
   /**
    * History identifier of history list
    * When valid history identifier is given, then component stores selected item to local storage of user's browser.
@@ -202,9 +194,20 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
   }
 
   /**
+   * Set initial value
+   * @param value
+   */
+  public setInitialValue(value: any) {
+    if (this.initialValue) {
+      this.select(value);
+    }
+  }
+
+  /**
    * Update search results
    */
   ngOnChanges(changes: SimpleChanges): void {
+    this.setInitialValue(this.initialValue);
     if (
       changes &&
       changes.data &&

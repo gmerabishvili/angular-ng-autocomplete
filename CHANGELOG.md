@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## Since version 2.0.2 and 2.0.3
+## Since version 2.0.2, 2.0.3 and 2.0.4
 
 ### Features
 * **focusFirst:** Automatically focus the first matched item on the list.

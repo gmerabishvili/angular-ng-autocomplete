@@ -33,14 +33,6 @@ export class HomeComponent implements OnInit {
    * Static Data
    */
 
-  /*  public countries = ['Albania', 'Andorra', 'Armenia', 'Austria', 'Azerbaijan', 'Belarus',
-      'Belgium'];*/
-
-  public test = ['Lithuania', 'Luxembourg', 'Macedonia', 'Malta',
-    'Moldova', 'Monaco', 'Montenegro', 'Netherlands', 'Norway', 'Poland',
-    'Portugal', 'Romania', 'Russia', 'San Marino', 'Serbia', 'Slovakia', 'Slovenia',
-    'Spain', 'Sweden', 'Switzerland', 'Turkey', 'Ukraine', 'United Kingdom', 'Vatican City'];
-
   public countries: Country[] = [
     {
       id: 1,

@@ -15,7 +15,7 @@
       <ng-autocomplete #ngAutoCompleteStatic
                        [data]="countries"
                        [searchKeyword]="keyword"
-                       [initialValue]=""
+                       [initialValue]="initialValue"
                        [focusFirst]="true"
                        [placeholder]="placeholder"
                        (selected)='selectEvent($event)'
