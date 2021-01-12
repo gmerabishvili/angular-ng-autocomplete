@@ -52,7 +52,7 @@
       <button class="btn" type="button" (click)="focusApiPanel($event)">Focus</button>
     </div>
 
-    <div class="ng-autocomplete">
+    <div>
       <ng-autocomplete #ngAutoCompleteApi
                        [data]="items"
                        [searchKeyword]="keyword"
@@ -83,7 +83,7 @@
       </ng-template>
     </div>
   </div>
-
+  
   <div class="api">
     <h3>API data (Filter on local)</h3>
     <div class="control-buttons">
@@ -92,7 +92,7 @@
       <button class="btn" type="button" (click)="focusUserPanel($event)">Focus</button>
     </div>
 
-    <div class="ng-autocomplete">
+    <div>
       <ng-autocomplete #userAuto
                        [data]="users$ | async"
                        [searchKeyword]="keyword"
@@ -103,6 +103,47 @@
                        (inputChanged)='onUserChange($event)'
                        (scrolledToEnd)='scrollToEndUsers()'
                        notFoundText="User not found"
+                       [itemTemplate]="itemTemplateApi"
+                       [notFoundTemplate]="notFoundTemplate">
+      </ng-autocomplete>
+
+      <ng-template #itemTemplateApi let-item>
+        <a [innerHTML]="item.name"></a>
+      </ng-template>
+
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="api">
+    <h3>API data (Filter on server and preserve data)</h3>
+    <div class="control-buttons">
+      <button class="btn" type="button" (click)="openApiPanel($event)">Open</button>
+      <button class="btn" type="button" (click)="closeApiPanel($event)">Close</button>
+      <button class="btn" type="button" (click)="focusApiPanel($event)">Focus</button>
+    </div>
+
+    <div>
+      <ng-autocomplete #ngAutoCompleteApi
+                       [data]="items"
+                       [searchKeyword]="keyword"
+                       [placeholder]="placeholder"
+                       [ignoreFilter]="true"
+                       (selected)='selectEvent($event)'
+                       (inputChanged)='onChangeSearch($event)'
+                       (inputFocused)='focusedEventApi($event)'
+                       (inputCleared)='clearEventApi()'
+                       (scrolledToEnd)='scrollToEndApi()'
+                       (opened)="openedEventApi()"
+                       (closed)="closedEventApi()"
+                       historyIdentifier="reposList"
+                       [historyHeading]="historyHeading"
+                       historyListMaxNumber="5"
+                       notFoundText="Not found"
+                       [isLoading]="isLoading"
+                       debounceTime="700"
                        [itemTemplate]="itemTemplateApi"
                        [notFoundTemplate]="notFoundTemplate">
       </ng-autocomplete>

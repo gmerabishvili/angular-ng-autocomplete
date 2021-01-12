@@ -1,6 +1,6 @@
 .example {
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-start;
   flex-wrap: wrap;
   .control-buttons {
     display: flex;
@@ -18,5 +18,13 @@
       cursor: pointer;
       outline: none;
     }
+  }
+
+
+  .api, .static{
+    padding-right: 1em;
+    padding-left: 1em;
+    flex-basis: 33.33%;
+    box-sizing: border-box;
   }
 }

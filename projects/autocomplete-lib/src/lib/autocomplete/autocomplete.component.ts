@@ -106,6 +106,10 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
    * Focus first item in the list
    */
   @Input() public focusFirst = false;
+  /**
+   * Ignore a filtered mode and preserve data
+   */
+  @Input() public ignoreFilter = false;
 
 
   // @Output events
@@ -246,15 +250,21 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
     this.initSearchHistory();
     if (this.query != null && this.data) {
       this.toHighlight = this.query;
-      this.filteredList = this.data.filter((item: any) => {
-        if (typeof item === 'string') {
-          // string logic, check equality of strings
-          return item.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
-        } else if (typeof item === 'object' && item instanceof Object) {
-          // object logic, check property equality
-          return item[this.searchKeyword].toLowerCase().indexOf(this.query.toLowerCase()) > -1;
-        }
-      });
+
+      if(this.ignoreFilter){
+        this.filteredList = this.data;
+      }
+      else{
+        this.filteredList = this.data.filter((item: any) => {
+          if (typeof item === 'string') {
+            // string logic, check equality of strings
+            return item.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
+          } else if (typeof item === 'object' && item instanceof Object) {
+            // object logic, check property equality
+            return item[this.searchKeyword].toLowerCase().indexOf(this.query.toLowerCase()) > -1;
+          }
+        });
+      }
       // If [focusFirst]="true" automatically focus the first match
       if (this.filteredList.length > 0 && this.focusFirst) {
         this.selectedIdx = 0;
