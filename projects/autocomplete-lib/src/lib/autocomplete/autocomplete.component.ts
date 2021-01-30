@@ -107,6 +107,10 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
    */
   @Input() public focusFirst = false;
 
+  /**
+   * Custom filter function
+   */
+  @Input() public customFilter: (items: any[], query: string) => any[];
 
   // @Output events
   /** Event that is emitted whenever an item from the list is selected. */
@@ -246,15 +250,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
     this.initSearchHistory();
     if (this.query != null && this.data) {
       this.toHighlight = this.query;
-      this.filteredList = this.data.filter((item: any) => {
-        if (typeof item === 'string') {
-          // string logic, check equality of strings
-          return item.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
-        } else if (typeof item === 'object' && item instanceof Object) {
-          // object logic, check property equality
-          return item[this.searchKeyword].toLowerCase().indexOf(this.query.toLowerCase()) > -1;
-        }
-      });
+      this.filteredList = this.customFilter !== undefined ? this.customFilter([...this.data], this.query) : this.defaultFilterFunction();
       // If [focusFirst]="true" automatically focus the first match
       if (this.filteredList.length > 0 && this.focusFirst) {
         this.selectedIdx = 0;
@@ -262,6 +258,21 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
     } else {
       this.notFound = false;
     }
+  }
+
+  /**
+   * Default filter function, used unless customFilter is provided
+   */
+  public defaultFilterFunction(): any[] {
+    return this.data.filter((item: any) => {
+      if (typeof item === 'string') {
+        // string logic, check equality of strings
+        return item.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
+      } else if (typeof item === 'object' && item instanceof Object) {
+        // object logic, check property equality
+        return item[this.searchKeyword].toLowerCase().indexOf(this.query.toLowerCase()) > -1;
+      }
+    });
   }
 
 
