@@ -248,6 +248,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
   public filterList() {
     this.selectedIdx = -1;
     this.initSearchHistory();
+
     if (this.query != null && this.data) {
       this.toHighlight = this.query;
       this.filteredList = this.customFilter !== undefined ? this.customFilter([...this.data], this.query) : this.defaultFilterFunction();
@@ -262,6 +263,22 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
 
   /**
    * Default filter function, used unless customFilter is provided
+   */
+  public defaultFilterFunction(): any[] {
+    return this.data.filter((item: any) => {
+      if (typeof item === 'string') {
+        // string logic, check equality of strings
+        return item.toLowerCase().indexOf(this.query.toLowerCase()) > -1;
+      } else if (typeof item === 'object' && item instanceof Object) {
+        // object logic, check property equality
+        return item[this.searchKeyword].toLowerCase().indexOf(this.query.toLowerCase()) > -1;
+      }
+    });
+  }
+
+
+  /**
+   * Default filter function, used unless `filter` is provided
    */
   public defaultFilterFunction(): any[] {
     return this.data.filter((item: any) => {
