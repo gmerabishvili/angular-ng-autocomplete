@@ -133,18 +133,6 @@ export class HomeComponent implements OnInit {
    * Static
    */
 
-  customFilter(items: any, query: string) {
-    return items.filter((item: any) => {
-      if (typeof item === 'string') {
-        // string logic, check equality of strings
-        return item.indexOf(query) > -1;
-      } else if (typeof item === 'object' && item instanceof Object) {
-        // object logic, check property equality
-        return item.name.indexOf(query) > -1;
-      }
-    });
-  }
-
   changeEventStatic(string: string) {
     console.log('string', string);
   }
@@ -217,9 +205,6 @@ export class HomeComponent implements OnInit {
     this.onChangeSearch(null);
   }
 
-  emptyFilter(items: any[]) {
-    return items;
-  }
 
   openedEventApi() {
     console.log('opened');

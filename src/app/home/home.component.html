@@ -45,7 +45,7 @@
   </div>
 
   <div class="api">
-    <h3>API data (Filter on server with filtering on local)</h3>
+    <h3>API data (Filter on server)</h3>
     <div class="control-buttons">
       <button class="btn" type="button" (click)="openApiPanel($event)">Open</button>
       <button class="btn" type="button" (click)="closeApiPanel($event)">Close</button>
@@ -116,71 +116,6 @@
       </ng-template>
     </div>
   </div>
-
-  <div class="static">
-    <h3>Static data with custom filter (e.g. case-sensitive)</h3>
-
-    <div class="ng-autocomplete">
-      <ng-autocomplete #ngAutoCompleteStatic
-                       [filter]="customFilter"
-                       [data]="countries"
-                       [searchKeyword]="keyword"
-                       [initialValue]="initialValue"
-                       [focusFirst]="true"
-                       [placeholder]="placeholder"
-                       (selected)='selectEvent($event)'
-                       (inputChanged)='changeEventStatic($event)'
-                       (inputFocused)='focusEventStatic($event)'
-                       (inputCleared)='clearEventStatic()'
-                       (scrolledToEnd)='scrollToEndStatic()'
-                       (opened)="openedStatic()"
-                       (closed)="closedStatic()"
-                       historyIdentifier="countryList"
-                       [historyHeading]="historyHeading"
-                       historyListMaxNumber="15"
-                       notFoundText="Not found"
-                       minQueryLength="1"
-                       [itemTemplate]="itemTemplateStatic"
-                       [notFoundTemplate]="notFoundTemplate">
-      </ng-autocomplete>
-
-      <ng-template #itemTemplateStatic let-item>
-        <a [innerHTML]="item.name"></a>
-      </ng-template>
-
-      <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
-      </ng-template>
-    </div>
-  </div>
-
-  <div class="api">
-    <h3>API data (Disable local filter, you should change the data by re-fetching the data from server)</h3>
-
-    <div class="ng-autocomplete">
-      <ng-autocomplete #userAuto
-                       [data]="users$ | async"
-                       [filter]="emptyFilter"
-                       [searchKeyword]="keyword"
-                       [initialValue]="userInitialValue"
-                       [placeholder]="placeholder"
-                       (inputFocused)='userFocused($event)'
-                       (selected)='selectUser($event)'
-                       (inputChanged)='onUserChange($event)'
-                       (scrolledToEnd)='scrollToEndUsers()'
-                       notFoundText="User not found"
-                       [itemTemplate]="itemTemplateApi"
-                       [notFoundTemplate]="notFoundTemplate">
-      </ng-autocomplete>
-
-      <ng-template #itemTemplateApi let-item>
-        <a [innerHTML]="item.name"></a>
-      </ng-template>
-
-      <ng-template #notFoundTemplate let-notFound>
-        <div [innerHTML]="notFound"></div>
-      </ng-template>
-    </div>
 </div>
 
 <br>
@@ -234,4 +169,3 @@
     </div>
   </div>
 </div>
-
