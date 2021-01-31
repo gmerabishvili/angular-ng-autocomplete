@@ -297,4 +297,14 @@ export class HomeComponent implements OnInit {
     e.stopPropagation();
     this.userAuto.focus();
   }
+
+  /*Custom filters*/
+
+  customFilter(items: any, query: string) {
+    return items.filter((item: any) => {
+      return item.name.toLowerCase().indexOf(query.toLowerCase()) > -1;
+    });
+  }
+
+  disableFilter = (items: any[]) => items;
 }

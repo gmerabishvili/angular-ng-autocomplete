@@ -182,3 +182,56 @@
       </ng-template>
     </div>
 </div>
+
+<br>
+<h2 style="text-align: center">Custom filters</h2>
+
+<!--Custom filters-->
+<div class="custom-filters">
+  <div class="static">
+    <h4>Static data with custom filter (e.g. case-sensitive)</h4>
+
+    <div class="ng-autocomplete">
+      <ng-autocomplete
+        [data]="countries"
+        [searchKeyword]="keyword"
+        [customFilter]="customFilter"
+        [placeholder]="placeholder"
+        [itemTemplate]="itemTemplateStatic"
+        [notFoundTemplate]="notFoundTemplate">
+      </ng-autocomplete>
+
+      <ng-template #itemTemplateStatic let-item>
+        <a [innerHTML]="item.name"></a>
+      </ng-template>
+
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="api">
+    <h4>API data (Disable local filter, you should change the data by re-fetching the data from server)</h4>
+
+    <div class="ng-autocomplete">
+      <ng-autocomplete
+        [data]="users$ | async"
+        [searchKeyword]="keyword"
+        [customFilter]="disableFilter"
+        [placeholder]="placeholder"
+        [itemTemplate]="itemTemplateApi"
+        [notFoundTemplate]="notFoundTemplate">
+      </ng-autocomplete>
+
+      <ng-template #itemTemplateApi let-item>
+        <a [innerHTML]="item.name"></a>
+      </ng-template>
+
+      <ng-template #notFoundTemplate let-notFound>
+        <div [innerHTML]="notFound"></div>
+      </ng-template>
+    </div>
+  </div>
+</div>
+

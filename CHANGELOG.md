@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## Version 2.0.5
+
+### Features
+* **customFilter:** Custom filter function. You can use it to provide your own filtering function.
+
+
 ## Since version 2.0.2, 2.0.3 and 2.0.4
 
 ### Features
