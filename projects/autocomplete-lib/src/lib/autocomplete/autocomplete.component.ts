@@ -513,7 +513,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
     this.inputFocused.emit(e);
     // if data exists then open
     if (this.data && this.data.length) {
-      this.setPanelState(event);
+      this.setPanelState(e);
     }
     this.isFocused = true;
   }
