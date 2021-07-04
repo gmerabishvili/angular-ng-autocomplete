@@ -103,6 +103,7 @@ class TestComponent {
 | [data] | `Array<any>`  | `null` | yes | Items array. It can be array of strings or array of objects. |
 | searchKeyword | `string` |  `-` | yes | Variable name to filter data with. |
 | customFilter | `(items: any[], query: string) => any[]` | `undefined` | no | Custom filter function. You can use it to provide your own filtering function, as e.g. fuzzy-matching filtering, or to disable filtering at all (just pass `(items) => items` as a filter). Do not change the `items` argument given, return filtered list instead. |
+| selectedValueRender | `(value: any) => string` | `undefined` | no | Custom renderer function to render selected value inside input field |
 | placeholder  | `string` | `-` | no |  HTML `<input>` placeholder text.  |
 | heading | `string` | `-` | no | Heading text of items list. If it is null then heading is hidden. |
 | initialValue | `any` | `_` | no | initial/default selected value. |
