@@ -112,6 +112,12 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
    */
   @Input() public customFilter: (items: any[], query: string) => any[];
 
+  /**
+   * Custom result render function
+   * @param value - selected value to be rendered inside input field
+   */
+  @Input() public selectedValueRender: (value: any) => string;
+
   // @Output events
   /** Event that is emitted whenever an item from the list is selected. */
   @Output() selected = new EventEmitter<any>();
@@ -154,7 +160,11 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
    * Updates model
    */
   writeValue(value: any = '') {
-    this.query = value && !this.isTypeString(value) ? value[this.searchKeyword] : value;
+    this.query = this.selectedValueRender !== undefined ? this.selectedValueRender(value) : this.defaultWriteValue(value);
+  }
+
+  private defaultWriteValue(value: any) {
+    return value && !this.isTypeString(value) ? value[this.searchKeyword] : value;
   }
 
   /**
