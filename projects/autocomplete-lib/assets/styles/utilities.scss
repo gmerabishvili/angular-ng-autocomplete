@@ -1,0 +1,6 @@
+@mixin auto-override-icon($font-family, $icon) {
+  font-family: $font-family;
+  &:before {
+    content: $icon;
+  }
+}

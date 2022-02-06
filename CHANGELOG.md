@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## Version 2.0.6
+
+### Features
+* **selectedValueRender:** Custom renderer function to render selected value inside input field.
+* Customizable icons.
+
+
+### Bug Fixes
+* Angular upgraded to V 12.
+* Removed automatic dependency on fonts.google.com.
+* Fixed 'scrolledToEnd event fires together with closed event' issue.
+* Accessibility improved.
+* Minor fixes and improvements.
+
+
 ## Version 2.0.5
 
 ### Features

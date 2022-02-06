@@ -1,6 +1,6 @@
 {
   "name": "angular-ng-autocomplete",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Angular autocomplete",
   "keywords": [
     "angular",
@@ -17,7 +17,9 @@
     "angular-8",
     "angular-9",
     "angular-10",
-    "angular-11"
+    "angular-11",
+    "angular-12",
+    "angular-13"
   ],
   "author": {
     "name": "Giorgi Merabishvili",
@@ -36,57 +38,42 @@
     "build_lib": "ng build angular-autocomplete",
     "npm_pack": "cd dist/autocomplete-lib && npm pack",
     "package": "npm run build_lib && npm run npm_pack",
+    "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^9.0.0",
-    "@angular/common": "^9.0.0",
-    "@angular/compiler": "^9.0.0",
-    "@angular/core": "^9.0.0",
-    "@angular/forms": "^9.0.0",
-    "@angular/platform-browser": "^9.0.0",
-    "@angular/platform-browser-dynamic": "^9.0.0",
-    "@angular/platform-server": "^9.0.0",
-    "@angular/router": "^9.0.0",
-    "adm-zip": "^0.4.13",
-    "core-js": "^3.6.4",
-    "ng-packagr": "^10.1.1",
+    "@angular/animations": "^12.2.16",
+    "@angular/common": "^12.2.16",
+    "@angular/compiler": "^12.2.16",
+    "@angular/core": "^12.2.16",
+    "@angular/forms": "^12.2.16",
+    "@angular/platform-browser": "^12.2.16",
+    "@angular/platform-browser-dynamic": "^12.2.16",
+    "@angular/platform-server": "^12.2.16",
+    "@angular/router": "^12.2.16",
     "rxjs": "^6.5.4",
-    "zone.js": "^0.10.2"
+    "tslib": "^2.3.1",
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.900.1",
-    "@angular-devkit/build-ng-packagr": "^0.900.1",
-    "@angular/cli": "^9.0.0",
-    "@angular/compiler-cli": "^9.0.0",
-    "@angular/language-service": "^9.0.0",
+    "@angular-devkit/build-angular": "^12.2.16",
+    "@angular/cli": "^12.2.16",
+    "@angular/compiler-cli": "^12.2.16",
+    "@angular/language-service": "^12.2.16",
     "@types/jasmine": "^3.5.3",
-    "@types/jasminewd2": "~2.0.3",
     "@types/node": "^13.7.1",
-    "codelyzer": "^5.2.1",
     "jasmine-core": "^3.5.0",
-    "jasmine-spec-reporter": "^4.2.1",
-    "karma": "^4.4.1",
+    "karma": "^6.3.12",
     "karma-chrome-launcher": "^3.1.0",
-    "karma-cli": "^2.0.0",
-    "karma-coverage-istanbul-reporter": "~2.0.0",
+    "karma-coverage": "~2.1.0",
     "karma-jasmine": "^3.1.1",
     "karma-jasmine-html-reporter": "^1.5.2",
-    "protractor": "^5.4.3",
-    "rxjs-tslint": "^0.1.7",
+    "ng-packagr": "^12.2.7",
     "ts-node": "~5.0.1",
-    "tsickle": ">=0.25.5",
-    "tslib": "^1.10.0",
-    "tslint": "^6.0.0",
-    "typescript": "^3.6.5",
-    "webpack": "^4.41.6"
+    "typescript": "^4.3.5"
   },
-  "peerDependencies": {
-    "typescript": "3.6.5",
-    "tslib": "1.10.0"
-  }
+  "peerDependencies": {}
 }

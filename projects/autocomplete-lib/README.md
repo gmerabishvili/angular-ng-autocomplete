@@ -48,6 +48,7 @@ export class AppModule {}
 <ng-autocomplete 
   [data]="data"
   [searchKeyword]="keyword"
+  placeholder="Select country"
   (selected)='selectEvent($event)'
   (inputChanged)='onChangeSearch($event)'
   (inputFocused)='onFocused($event)'
@@ -70,12 +71,16 @@ export class AppModule {}
 class TestComponent {
   keyword = 'name';
   data = [
+    {
+      id: 1,
+      name: 'Georgia'
+    },
      {
-       id: 1,
+       id: 2,
        name: 'Usa'
      },
      {
-       id: 2,
+       id: 3,
        name: 'England'
      }
   ];
@@ -103,24 +108,19 @@ class TestComponent {
 | [data] | `Array<any>`  | `null` | yes | Items array. It can be array of strings or array of objects. |
 | searchKeyword | `string` |  `-` | yes | Variable name to filter data with. |
 | customFilter | `(items: any[], query: string) => any[]` | `undefined` | no | Custom filter function. You can use it to provide your own filtering function, as e.g. fuzzy-matching filtering, or to disable filtering at all (just pass `(items) => items` as a filter). Do not change the `items` argument given, return filtered list instead. |
+| selectedValueRender | `(value: any) => string` | `undefined` | no | Custom renderer function to render selected value inside input field. |
 | placeholder  | `string` | `-` | no |  HTML `<input>` placeholder text.  |
 | heading | `string` | `-` | no | Heading text of items list. If it is null then heading is hidden. |
-| initialValue | `any` | `_` | no | initial/default selected value. |
+| initialValue | `any` | `_` | no | Initial/default selected value. |
 | focusFirst | `boolean` | `false` | no | Automatically focus the first matched item on the list. |
 | historyIdentifier  | `string` | `_` | no | History identifier of history list. When valid history identifier is given, then component stores selected item to local storage of user's browser. If it is null then history is hidden. History list is visible if at least one history item is stored. History identifier must be unique.  |
 | historyHeading | `string` | `Recently selected` | no | Heading text of history list. If it is null then history heading is hidden. |
 | historyListMaxNumber | `number` | `15` | no | Maximum number of items in the history list. |
 | notFoundText | `string` | `Not found` | no | Set custom text when filter returns empty result. |
-| isLoading | `boolean` | `false` | no | Set the loading state when data is being loaded. |
+| isLoading | `boolean` | `false` | no | Set the loading state when data is being loaded, (e.g. async items loading) and show loading spinner. |
 | minQueryLength | `number` | `1` | no | The minimum number of characters the user must type before a search is performed. |
 | debounceTime | `number` | `_` | no | Delay time while typing. |
-| disabled | `boolean` | `false` | no | input disable/enable. |
-| name | `string` | `_` | yes (If NgModel is used within a form tag) |  Tracks the name bound to the NgModel directive. For more details click [here](https://angular.io/api/forms/NgModel) |
-| [(ngModel)] | `any` | `_` | no |  Tracks the value bound to this directive. Used with Template-driven forms. For more details click [here](https://angular.io/api/forms/NgModel) |
-| [formControl] / formControlName | `string` | `_` | no |  Tracks the FormControl instance bound to the directive. Used with Reactive forms. For more details click [here](https://angular.io/api/forms/FormControlDirective) and [here](https://angular.io/api/forms/FormControlName) |
-
-
-
+| disabled | `boolean` | `false` | no | HTML `<input>` disable/enable. |
 
 ### Outputs
 | Output  | Description |
@@ -182,6 +182,26 @@ If you are not happy with default styles you can easily override them:
 ```css
 .ng-autocomplete {
     width: 400px;
+}
+```
+
+Library uses **Material** icon font by default, which uses a ```:before``` selector to cause the icon to appear. You can easily replace
+the default icons with ```@mixin```
+<br> ```auto-override-icon($font-family, $icon)``` exported from ng-autocomplete.  E.g. If you use **Font Awesome** or any other icon font library:
+
+```css
+@import '~angular-ng-autocomplete/autocomplete-lib/assets/styles/utilities';
+
+.ng-autocomplete {
+  ::ng-deep {
+    i.close {
+      @include auto-override-icon('Font Awesome 5 Free', "\f005");
+    }
+
+    i.delete {
+      @include auto-override-icon('Font Awesome 5 Free', "\f007");
+    }
+  }
 }
 ```
 

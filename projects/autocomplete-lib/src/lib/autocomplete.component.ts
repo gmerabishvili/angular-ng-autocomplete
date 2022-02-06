@@ -539,7 +539,7 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
       .scrollHeight;
     const elementHeight = this.filteredListElement.nativeElement
       .clientHeight;
-    const atBottom = scrollHeight === scrollTop + elementHeight;
+    const atBottom = elementHeight !=0 && scrollHeight === scrollTop + elementHeight;
     if (atBottom) {
       this.scrolledToEnd.emit();
       this.isScrollToEnd = true;
