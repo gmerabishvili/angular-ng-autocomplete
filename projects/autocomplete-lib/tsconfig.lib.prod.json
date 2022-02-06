@@ -5,6 +5,11 @@
     "declarationMap": false
   },
   "angularCompilerOptions": {
-    "compilationMode": "partial"
-  }
+    "enableResourceInlining": true,
+    "enableIvy": false
+  },
+  "exclude": [
+    "src/test.ts",
+    "**/*.spec.ts"
+  ]
 }
