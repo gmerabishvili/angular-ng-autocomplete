@@ -5,6 +5,7 @@
     "declarationMap": false
   },
   "angularCompilerOptions": {
+    "compilationMode": "partial",
     "enableResourceInlining": true,
     "enableIvy": false
   },
