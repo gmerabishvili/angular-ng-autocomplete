@@ -69,7 +69,6 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
   private manualOpen = undefined;
   private manualClose = undefined;
 
-
   // @Inputs
   /**
    * Data of items list.
@@ -106,6 +105,11 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
    * Focus first item in the list
    */
   @Input() public focusFirst = false;
+
+  /**
+   * The maximum number of items to display in the items list
+   */
+  @Input() public maxItemsShown: number;
 
   /**
    * Custom filter function
@@ -215,6 +219,14 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
     if (this.initialValue) {
       this.select(value);
     }
+  }
+
+
+  /**
+   * Return the filteredList (sliced if maxItemsShown is defined)
+   */
+  public get filteredListCount(){
+    return this.filteredList.slice(0, this.maxItemsShown);
   }
 
   /**
