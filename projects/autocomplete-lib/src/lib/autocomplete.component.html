@@ -42,7 +42,7 @@
     </div>
 
     <ul #filteredListElement>
-      <li *ngFor="let item of filteredList; let idx = index" class="item">
+      <li *ngFor="let item of filteredListCount; let idx = index" class="item">
         <!--string logic-->
         <div [class.complete-selected]="idx === selectedIdx" *ngIf='isTypeString(item)'
              (click)="select(item)">

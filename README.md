@@ -113,6 +113,7 @@ class TestComponent {
 | heading | `string` | `-` | no | Heading text of items list. If it is null then heading is hidden. |
 | initialValue | `any` | `_` | no | Initial/default selected value. |
 | focusFirst | `boolean` | `false` | no | Automatically focus the first matched item on the list. |
+| maxItemsShown | `number` | `undefined` | no | Set the maximum number of items shown (Useful to improve performances when using large items array) |
 | historyIdentifier  | `string` | `_` | no | History identifier of history list. When valid history identifier is given, then component stores selected item to local storage of user's browser. If it is null then history is hidden. History list is visible if at least one history item is stored. History identifier must be unique.  |
 | historyHeading | `string` | `Recently selected` | no | Heading text of history list. If it is null then history heading is hidden. |
 | historyListMaxNumber | `number` | `15` | no | Maximum number of items in the history list. |

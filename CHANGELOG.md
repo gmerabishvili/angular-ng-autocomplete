@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+
+## Version 2.0.9
+
+### Features
+* **maxItemsShown:** Attributes to render a maximum number of items in the list.
+
+
 ## Version 2.0.6
 
 ### Features
