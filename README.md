@@ -185,26 +185,6 @@ If you are not happy with default styles you can easily override them:
 }
 ```
 
-Library uses **Material** icon font by default, which uses a ```:before``` selector to cause the icon to appear. You can easily replace
-the default icons with ```@mixin```
-<br> ```auto-override-icon($font-family, $icon)``` exported from ng-autocomplete.  E.g. If you use **Font Awesome** or any other icon font library:
-
-```css
-@import '~angular-ng-autocomplete/autocomplete-lib/assets/styles/utilities';
-
-.ng-autocomplete {
-  ::ng-deep {
-    i.close {
-      @include auto-override-icon('Font Awesome 5 Free', "\f005");
-    }
-
-    i.delete {
-      @include auto-override-icon('Font Awesome 5 Free', "\f007");
-    }
-  }
-}
-```
-
 ## Support Angular autocomplete!
 If you do love angular-ng-autocomplete I would appreciate a donation :)
 

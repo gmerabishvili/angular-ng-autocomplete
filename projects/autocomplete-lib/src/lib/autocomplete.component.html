@@ -14,7 +14,7 @@
            [disabled]="disabled"
            autocomplete="off">
     <div class="x" *ngIf="query && !isLoading && !disabled" (click)="remove($event)">
-      <i class="material-icons close" aria-label="Close"></i>
+      <i class="material-icons" aria-label="Close">close</i>
     </div>
     <!--Loading mask-->
     <div class="sk-fading-circle" *ngIf="isLoading">
@@ -68,7 +68,7 @@
     <div class="heading" *ngIf="historyList.length > 0 && historyHeading">
       <div class="text">{{historyHeading}}</div>
       <div class="x" (click)="resetHistoryList($event)">
-        <i class="material-icons delete" aria-label="Delete"></i>
+        <i class="material-icons" aria-label="Delete">delete</i>
       </div>
     </div>
 
@@ -87,7 +87,7 @@
           </ng-container>
         </div>
         <div class="x" (click)="removeHistoryItem(idx, $event)">
-          <i class="material-icons close" aria-label="Close"></i>
+          <i class="material-icons" aria-label="Close">close</i>
         </div>
       </li>
     </ul>

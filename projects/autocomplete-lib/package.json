@@ -1,6 +1,6 @@
 {
   "name": "angular-ng-autocomplete",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Angular autocomplete",
   "keywords": [
     "angular",
@@ -19,7 +19,8 @@
     "angular-10",
     "angular-11",
     "angular-12",
-    "angular-13"
+    "angular-13",
+    "angular-14"
   ],
   "author": {
     "name": "Giorgi Merabishvili",
