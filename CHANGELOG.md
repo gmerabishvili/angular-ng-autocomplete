@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Version 2.0.10
+
+### Bug Fixes
+* Infinite scroll bug fixed on browser resize.
+
 ## Version 2.0.6
 
 ### Features
