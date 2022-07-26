@@ -533,31 +533,18 @@ export class AutocompleteComponent implements OnInit, OnChanges, AfterViewInit, 
       return;
     }
 
-    const atBottom = this.elementInViewport(this.filteredListElement.nativeElement);
+    const scrollTop = this.filteredListElement.nativeElement
+      .scrollTop;
+    const scrollHeight = this.filteredListElement.nativeElement
+      .scrollHeight;
+    const elementHeight = this.filteredListElement.nativeElement
+      .clientHeight;
+    const atBottom = Math.abs(scrollHeight - elementHeight - scrollTop) < 1;
+
     if (atBottom) {
       this.scrolledToEnd.emit();
       this.isScrollToEnd = true;
     }
-  }
-
-  elementInViewport(el) {
-    let top = el.offsetTop;
-    let left = el.offsetLeft;
-    let width = el.offsetWidth;
-    let height = el.offsetHeight;
-
-    while(el.offsetParent) {
-      el = el.offsetParent;
-      top += el.offsetTop;
-      left += el.offsetLeft;
-    }
-
-    return (
-      top < (window.pageYOffset + window.innerHeight) &&
-      left < (window.pageXOffset + window.innerWidth) &&
-      (top + height) > window.pageYOffset &&
-      (left + width) > window.pageXOffset
-    );
   }
 
   /**
